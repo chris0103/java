@@ -36,9 +36,9 @@ public class InnerPackageReferenceChecker {
 	 * tif-utils
 	 */
 	private static String path = "D:\\sandbox\\workspace\\project\\src\\main\\java\\com\\covisint\\";
-	private static String currentPkg = "commonreg2\\autogrant\\engine\\impl\\";
+	private static String currentPkg = "commonreg2\\autogrant\\engine\\";
 	private static String project = "tif-core\\";
-	private static String clazz = "PnutsAutoGrantImpl.java";	
+	private static String clazz = "AutoGrant.java";	
 	
 	public static void main(String[] args) throws IOException {
 		System.out.println("===" + clazz + "===");
