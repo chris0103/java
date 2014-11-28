@@ -1,4 +1,4 @@
-package org.chirs.tools.random;
+package org.chirs.tools.randomania;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
