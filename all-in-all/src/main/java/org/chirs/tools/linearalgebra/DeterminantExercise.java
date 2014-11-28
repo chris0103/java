@@ -2,7 +2,7 @@ package org.chirs.tools.linearalgebra;
 
 import java.util.Random;
 
-import linearalgebra.number.Fraction;
+import org.chirs.tools.linearalgebra.number.Fraction;
 
 public class DeterminantExercise {
 

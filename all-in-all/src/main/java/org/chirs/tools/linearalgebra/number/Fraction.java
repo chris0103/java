@@ -1,4 +1,4 @@
-package linearalgebra.number;
+package org.chirs.tools.linearalgebra.number;
 
 public class Fraction {
 	
