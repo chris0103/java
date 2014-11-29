@@ -14,8 +14,10 @@ import java.util.TreeMap;
 
 public class FireFoxFavoritesViewer {
 	
+	private static final String USER_PLACEHOLDER = "<USER>";
 	private static final String PROFILE_PLACEHOLDER = "<PROFILE_NAME>";
-	private static final String SQLITE_URL = "jdbc:sqlite:C:\\Users\\u124336\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\" + PROFILE_PLACEHOLDER + "\\places.sqlite";
+	private static final String SQLITE_URL = "jdbc:sqlite:C:\\Users\\" + USER_PLACEHOLDER 
+			+ "\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\" + PROFILE_PLACEHOLDER + "\\places.sqlite";
 	
 	private static final String SQL = "SELECT parent_bm.title, child_bm.position, child_bm.title, child_bm.type, child_bm.fk, plc.url FROM moz_bookmarks parent_bm"
 			+ " LEFT JOIN moz_bookmarks child_bm ON parent_bm.id = child_bm.parent"
@@ -23,7 +25,8 @@ public class FireFoxFavoritesViewer {
 			+ " WHERE (parent_bm.title is not null and parent_bm.title != '') AND ((child_bm.title IS NOT null AND child_bm.title != '')) AND child_bm.fk IS NOT null"
 			+ " ORDER BY parent_bm.title, child_bm.position";
 	
-	private String profileName;
+	private String user;
+	private String profile;
 	private static List<Site> subscriptions = new ArrayList<Site>();
 	private static Map<String, Integer> subMetas = new HashMap<String, Integer>();
 	
@@ -51,8 +54,9 @@ public class FireFoxFavoritesViewer {
 		}
 	}
 	
-	public FireFoxFavoritesViewer(String profileName) {
-		this.profileName = profileName;
+	public FireFoxFavoritesViewer(String user, String profile) {
+		this.user = user;
+		this.profile = profile;
 	}
 	
 	/**
@@ -63,7 +67,7 @@ public class FireFoxFavoritesViewer {
 	public void loadSites() throws ClassNotFoundException, SQLException {
 		List<Site> sites;
 		Class.forName("org.sqlite.JDBC");
-		Connection conn = DriverManager.getConnection(SQLITE_URL.replace(PROFILE_PLACEHOLDER, profileName));
+		Connection conn = DriverManager.getConnection(SQLITE_URL.replace(USER_PLACEHOLDER, user).replace(PROFILE_PLACEHOLDER, profile));
 		conn.setReadOnly(true);
 		Statement statement = conn.createStatement();
 		ResultSet rs = statement.executeQuery(SQL);
@@ -118,16 +122,16 @@ public class FireFoxFavoritesViewer {
 	
 	private static void showUsage() {
 		System.out.println("Usage:");
-		System.out.println("FireFoxFavoritesViewer <your Firefox profile name>");
+		System.out.println("FireFoxFavoritesViewer <your computer account name> <your Firefox profile name>");
 		System.out.println();
 	}
 	
 	public static void main(String[] args) throws Exception {
-		if (args.length != 1) {
+		if (args.length != 2) {
 			showUsage();
 			System.exit(-1);
 		}
-		FireFoxFavoritesViewer viewer = new FireFoxFavoritesViewer(args[0]);
+		FireFoxFavoritesViewer viewer = new FireFoxFavoritesViewer(args[0], args[1]);
 		viewer.loadSites();
 		viewer.printBookmarks();
 		System.out.println();
