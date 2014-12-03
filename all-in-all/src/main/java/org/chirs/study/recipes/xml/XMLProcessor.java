@@ -1,27 +1,26 @@
 package org.chirs.study.recipes.xml;
 
 /**
- * The XML processor interface defining common XML process operations.
+ * The XML processor interface defining common XML document process operations.
  */
 public interface XMLProcessor<T> {
 	
 	/**
-	 * Shows way to initialize and setup the XML processor itself.
-	 * @return
+	 * Initializes the XML processor itself.
 	 */
-	public XMLProcessor<T> setup();
+	public void setup();
 	
 	/**
 	 * Walks through a given XML document.
 	 * @param document
 	 */
-	public void walk(T document);
+	public void walkDocument(T document);
 	
 	/**
 	 * Creates an XML document from scratch.
 	 * @return
 	 */
-	public T create();
+	public T createDocument();
 
 	/**
 	 * Modifies XML document part using given value.
@@ -30,5 +29,5 @@ public interface XMLProcessor<T> {
 	 * @param value
 	 * @return
 	 */
-	public Object modify(T document, String path, Object value);
+	public Object modifyDocument(T document, String path, Object value);
 }
