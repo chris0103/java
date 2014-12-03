@@ -2,7 +2,7 @@ package org.chirs.study.recipes.xml;
 
 import java.io.InputStream;
 
-import org.chirs.study.recipes.xml.exception.ConcubineCouldNotMakeItException;
+import org.chirs.study.recipes.xml.exception.YoursBelovedCouldNotMakeItException;
 
 public class SAXProcessor implements XMLProcessor<InputStream> {
 
@@ -18,7 +18,7 @@ public class SAXProcessor implements XMLProcessor<InputStream> {
 
 	@Override
 	public InputStream create() {
-		throw new ConcubineCouldNotMakeItException();
+		throw new YoursBelovedCouldNotMakeItException();
 	}
 
 	@Override
