@@ -26,9 +26,7 @@ public class SAXProcessor implements XMLProcessor<InputStream> {
 	private static final String PROPERTY_PERFIX = "http://xml.org/sax/properties/";
 	private static final String PROPERTY_DECLARATION_HANDLER = "declaration-handler";
 	private static final String PROPERTY_DOC_XML_VER = "document-xml-version";
-	private static final String PROPERTY_DOM_NODE = "dom-node";
 	private static final String PROPERTY_LEXICAL_HANDLER = "lexical-handler";
-	private static final String PROPERTY_XML_STR = "xml-string";
 	
 	
 	private final Logger logger = LoggerFactory.getLogger(SAXProcessor.class);
@@ -42,7 +40,7 @@ public class SAXProcessor implements XMLProcessor<InputStream> {
 		try {
 			parser = factory.newSAXParser();
 			logger.debug("SAX parser created: {}", parser);
-			showFeatures();
+			showFeaturesAndProperties();
 			
 		} catch (ParserConfigurationException | SAXException e) {
 			logger.error("Failed to get SAX parser.", e);
@@ -64,7 +62,7 @@ public class SAXProcessor implements XMLProcessor<InputStream> {
 		return null;
 	}
 	
-	private void showFeatures() {
+	private void showFeaturesAndProperties() {
 		XMLReader reader = null;
 		try {
 			reader = parser.getXMLReader();
@@ -77,11 +75,9 @@ public class SAXProcessor implements XMLProcessor<InputStream> {
 			logger.debug("{}={}", FEATURE_EXTERNAL_PARAM_ENTITIES, reader.getFeature(FEATURE_PREFIX + FEATURE_EXTERNAL_PARAM_ENTITIES));
 			logger.debug("{}={}", FEATURE_LEXICAL_HANDLER_PARAM_ENTITIES, reader.getFeature(FEATURE_PREFIX + FEATURE_LEXICAL_HANDLER_PARAM_ENTITIES));
 			logger.debug("===SAX Parser Properties===");
-			logger.debug("{}={}", PROPERTY_DECLARATION_HANDLER, reader.getFeature(PROPERTY_PERFIX + PROPERTY_DECLARATION_HANDLER));
-			logger.debug("{}={}", PROPERTY_DOC_XML_VER, reader.getFeature(PROPERTY_PERFIX + PROPERTY_DOC_XML_VER));
-			logger.debug("{}={}", PROPERTY_DOM_NODE, reader.getFeature(PROPERTY_PERFIX + PROPERTY_DOM_NODE));
-			logger.debug("{}={}", PROPERTY_LEXICAL_HANDLER, reader.getFeature(PROPERTY_PERFIX + PROPERTY_LEXICAL_HANDLER));
-			logger.debug("{}={}", PROPERTY_XML_STR, reader.getFeature(PROPERTY_PERFIX + PROPERTY_XML_STR));
+			logger.debug("{}={}", PROPERTY_DECLARATION_HANDLER, reader.getProperty(PROPERTY_PERFIX + PROPERTY_DECLARATION_HANDLER));
+			logger.debug("{}={}", PROPERTY_DOC_XML_VER, reader.getProperty(PROPERTY_PERFIX + PROPERTY_DOC_XML_VER));
+			logger.debug("{}={}", PROPERTY_LEXICAL_HANDLER, reader.getProperty(PROPERTY_PERFIX + PROPERTY_LEXICAL_HANDLER));
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
