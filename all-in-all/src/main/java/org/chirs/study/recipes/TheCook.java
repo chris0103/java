@@ -1,15 +1,12 @@
 package org.chirs.study.recipes;
 
-import java.io.File;
-
-import org.chirs.study.xml.sax.SAXProcessor;
+import org.chirs.study.recipes.format.NumberFormat;
 
 public class TheCook {
 
 	public void cook() {
-		SAXProcessor processor = new SAXProcessor();
-		processor.setup();
-		processor.walkDocument(new File("SAML response.xml"));
+		NumberFormat format = new NumberFormat();
+		System.out.println(format.toDecimal(4.4166665, 2));
 	}
 	
 	public static void main(String[] args) {
