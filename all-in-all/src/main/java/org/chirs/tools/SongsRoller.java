@@ -1,5 +1,8 @@
 package org.chirs.tools;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class SongsRoller {
 
 	private boolean verbose = false;
@@ -20,7 +23,7 @@ public class SongsRoller {
 			return 0;
 		}
 		int i = 10;
-		while (i <= count) {
+		while (count >= i) {
 			if (verbose) {
 				System.out.print(i + ":\t");
 			}
@@ -67,10 +70,14 @@ public class SongsRoller {
 	
 	public static void main(String[] args) {
 		SongsRoller roller = new SongsRoller(false);
-//		for (int i = 1; i <= 300; i++) {
-//			System.out.println(i + " - " + roller.getTotalListenCount(i));
-//		}
+
+		DecimalFormat numberFormat = new DecimalFormat("#.##");
+		numberFormat.setRoundingMode(RoundingMode.HALF_UP);
+		for (int i = 100; i <= 2000; i = i + 50) {
+			int totalListened = roller.getTotalListenCount(i);
+			System.out.println(i + "\t" + totalListened + "\t" + numberFormat.format((float) totalListened / i));
+		}
 		roller.setVerbose(true);
-		roller.getTotalListenCount(100);
+		// roller.getTotalListenCount(100);
 	}
 }
