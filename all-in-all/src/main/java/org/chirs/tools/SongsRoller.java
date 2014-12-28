@@ -64,20 +64,21 @@ public class SongsRoller {
 		return totalListened;
 	}
 	
+	public void getBlockSizeStatistics() {
+		DecimalFormat numberFormat = new DecimalFormat("#.##");
+		numberFormat.setRoundingMode(RoundingMode.HALF_UP);
+		for (int i = 100; i <= 2000; i = i + 50) {
+			int totalListened = getTotalListenCount(i);
+			System.out.println(i + "\t" + totalListened + "\t" + numberFormat.format((float) totalListened / i));
+		}
+	}
+	
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
 	}
 	
 	public static void main(String[] args) {
-		SongsRoller roller = new SongsRoller(false);
-
-		DecimalFormat numberFormat = new DecimalFormat("#.##");
-		numberFormat.setRoundingMode(RoundingMode.HALF_UP);
-		for (int i = 100; i <= 2000; i = i + 50) {
-			int totalListened = roller.getTotalListenCount(i);
-			System.out.println(i + "\t" + totalListened + "\t" + numberFormat.format((float) totalListened / i));
-		}
-		roller.setVerbose(true);
-		// roller.getTotalListenCount(100);
+		SongsRoller roller = new SongsRoller(true);
+		roller.getTotalListenCount(1200);
 	}
 }
