@@ -32,7 +32,7 @@ public class SongsRoller {
 				if (verbose) {
 					System.out.print(count);
 					if (time < 2) {
-						System.out.print("\t");
+						System.out.print("  ");
 					}
 				}
 				if (count < i) {
@@ -79,6 +79,6 @@ public class SongsRoller {
 	
 	public static void main(String[] args) {
 		SongsRoller roller = new SongsRoller(true);
-		roller.getTotalListenCount(1200);
+		roller.getTotalListenCount(93);
 	}
 }
