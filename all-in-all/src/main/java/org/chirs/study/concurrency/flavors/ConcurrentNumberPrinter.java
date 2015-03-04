@@ -1,21 +1,25 @@
 package org.chirs.study.concurrency.flavors;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ConcurrentNumberPrinter {
 
 	private NumberPrinter[] numPrinters = new NumberPrinter[] {
-			new NakedThread(), new Executor(),
+			new NakedThread(), new Executor(), new ForkJoin(),
 	};
 	
-	public void printNumber(int num) throws InterruptedException {
+	public void printNumber(List<Integer> numbers) throws InterruptedException {
 		for (NumberPrinter numPrinter : numPrinters) {
 			System.out.println(numPrinter.getPrinterName() + " is printing the numbers:");
-			int sum = numPrinter.toNumber(num);
+			int sum = numPrinter.toNumber(numbers);
 			System.out.println("The sum from [" + numPrinter.getPrinterName() + "] is " + sum + ".");
 			System.out.println();
 		}
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		new ConcurrentNumberPrinter().printNumber(10);
+		List<Integer> numbers = Arrays.asList(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,}); 
+		new ConcurrentNumberPrinter().printNumber(numbers);
 	}
 }

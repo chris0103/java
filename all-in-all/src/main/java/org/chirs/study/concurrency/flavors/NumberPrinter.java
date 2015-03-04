@@ -1,5 +1,7 @@
 package org.chirs.study.concurrency.flavors;
 
+import java.util.List;
+
 public interface NumberPrinter {
 
 	/**
@@ -9,8 +11,8 @@ public interface NumberPrinter {
 	public String getPrinterName();
 	
 	/**
-	 * Prints from 1 to the given number and returns the sum.
+	 * Prints a list of numbers and returns the sum.
 	 * @param num
 	 */
-	public int toNumber(int num);
+	public int toNumber(List<Integer> nums);
 }
