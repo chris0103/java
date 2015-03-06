@@ -2,9 +2,14 @@
 package org.chirs.study.concurrency.flavors;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NakedThread implements NumberPrinter {
+	
+	private final Logger logger = LoggerFactory.getLogger(NakedThread.class);
 	
 	/**
 	 * {@inheritDoc}
@@ -19,19 +24,22 @@ public class NakedThread implements NumberPrinter {
 	 */
 	@Override
 	public int toNumber(List<Integer> nums) {
-		AtomicReference<Integer> result = new AtomicReference<>();
-		new Thread(
-			() -> {
-				int sum = 0;
-				for (int num : nums) {
+		AtomicInteger result = new AtomicInteger();
+		for (int num : nums) {
+			Thread thread = new Thread(
+				() -> {
 					System.out.print(num + "\t");
-					sum += num;
+					result.addAndGet(num);
 				}
-				System.out.println();
-				result.compareAndSet(null, sum);
+			);
+			thread.start();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				logger.error("Failed to join thread.", e);
 			}
-		).start();
-		while (result.get() == null);
+		}
+		System.out.println();
 		return result.get();
 	}
 }

@@ -6,7 +6,9 @@ import java.util.List;
 public class ConcurrentNumberPrinter {
 
 	private NumberPrinter[] numPrinters = new NumberPrinter[] {
-			new NakedThread(), new Executor(), new ForkJoin(),
+			new NakedThread(), 
+			new Executor(), 
+			new ForkJoin(),
 	};
 	
 	public void printNumber(List<Integer> numbers) throws InterruptedException {

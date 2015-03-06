@@ -1,12 +1,17 @@
 package org.chirs.study.concurrency.flavors;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Executor implements NumberPrinter {
+	
+	private final Logger logger = LoggerFactory.getLogger(Executor.class);
 
 	/**
 	 * {@inheritDoc}
@@ -21,23 +26,23 @@ public class Executor implements NumberPrinter {
 	 */
 	@Override
 	public int toNumber(List<Integer> nums) {
-		ExecutorCompletionService<Integer> service = new ExecutorCompletionService<Integer>(Executors.newFixedThreadPool(4));
-		service.submit(
-			() -> {
-				int sum = 0;
-				for (int num : nums) {
+		AtomicInteger result = new AtomicInteger();
+		ExecutorService executor = Executors.newFixedThreadPool(4);
+		for (int num : nums) {
+			executor.submit(
+				() -> {
 					System.out.print(num + "\t");
-					sum += num;
+					result.addAndGet(num);
 				}
-				System.out.println();
-				return sum;
-			}
-		);
-		try {
-			return service.take().get();
-		} catch (InterruptedException | ExecutionException e) {
-			return 0;
-		} finally {
+			);
 		}
+		try {
+			executor.shutdown();
+			executor.awaitTermination(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			logger.error("Failed to await executor termination.", e);
+		}
+		System.out.println();
+		return result.get();
 	}
 }
