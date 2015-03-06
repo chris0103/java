@@ -1,31 +1,29 @@
 package org.chirs.study.concurrency.flavors;
 
 import java.util.List;
-import java.util.Optional;
 
-import play.libs.ws.WS;
-
-public class ForkJoin implements SearchAgent {
+public class ForkJoin implements NumberPrinter {
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getAgentName() {
-		return "The Fork Join search agent";
+	public String getPrinterName() {
+		return "The Fork Join printer";
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String search(String key, List<String> engines) {
-		Optional<String> result = engines.stream().parallel().map(
-			(engine) -> {
-				String url = engine + key;
-				return WS.url(url).get().get(0).getBody();
+	public int toNumber(List<Integer> nums) {
+		int sum = nums.stream().parallel().mapToInt(
+			(num) -> {
+				System.out.print(num + "\t");
+				return num;
 			}
-		).findAny();
-		return result.get();
+		).sum();
+		System.out.println();
+		return sum;
 	}
 }

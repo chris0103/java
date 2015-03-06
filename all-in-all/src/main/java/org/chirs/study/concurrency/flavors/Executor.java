@@ -3,43 +3,41 @@ package org.chirs.study.concurrency.flavors;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import play.libs.ws.WS;
-
-
-public class Executor implements SearchAgent {
+public class Executor implements NumberPrinter {
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getAgentName() {
-		return "The executor search agent";
+	public String getPrinterName() {
+		return "The executor printer";
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String search(String key, List<String> engines) {
-		ExecutorService threadPool = Executors.newFixedThreadPool(4);
-		ExecutorCompletionService<String> service = new ExecutorCompletionService<String>(threadPool);
-		for (String engine : engines) {
-			String url = engine + key;
-			service.submit(
-				() -> {
-					return WS.url(url).get().get(0).getBody();
+	public int toNumber(List<Integer> nums) {
+		ExecutorCompletionService<Integer> service = new ExecutorCompletionService<Integer>(Executors.newFixedThreadPool(4));
+		service.submit(
+			() -> {
+				int sum = 0;
+				for (int num : nums) {
+					System.out.print(num + "\t");
+					sum += num;
 				}
-			);
-		}
+				System.out.println();
+				return sum;
+			}
+		);
 		try {
 			return service.take().get();
 		} catch (InterruptedException | ExecutionException e) {
-			return null;
+			return 0;
 		} finally {
-			threadPool.shutdown();
 		}
 	}
 }
