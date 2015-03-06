@@ -18,7 +18,7 @@ public class Test {
 		NingWSClient wsClient = new NingWSClient(builder.build());
 		WSRequestHolder request = wsClient.url(url);
 		Promise<WSResponse> promisedResponse = request.get();
-		WSResponse response = promisedResponse.get(60 * 1000);
+		WSResponse response = promisedResponse.get(3 * 1000);
 		
 		System.out.println(response.getStatusText());
 		((AsyncHttpClient) wsClient.getUnderlying()).close();

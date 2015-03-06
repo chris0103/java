@@ -40,7 +40,7 @@ public class ReadClassFilter {
 					if (line.contains("@author Chris")) {
 						readFound = true;
 					}
-					if (line.contains("Private constructors")) {
+					if (line.contains("IS NULL")) {
 						keyFound = true;
 					}
 					if (readFound && keyFound) {
@@ -58,7 +58,7 @@ public class ReadClassFilter {
 	
 	public static void main(String[] args) throws IOException {
 		String[] projects = new String[] {
-			"tif-utils_legacy", "tif-core_legacy"
+			"tif-utils", "tif-core"
 		};
 		List<String> readAbstractFiles = new ArrayList<String>();
 		for (String project : projects) {
