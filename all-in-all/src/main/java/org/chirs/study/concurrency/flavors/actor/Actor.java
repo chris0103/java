@@ -8,9 +8,8 @@ import org.chirs.study.concurrency.flavors.NumberPrinter;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.actor.UntypedActor;
 
-public class Actor extends UntypedActor implements NumberPrinter {
+public class Actor implements NumberPrinter {
 
 	@Override
 	public String getPrinterName() {
@@ -19,23 +18,11 @@ public class Actor extends UntypedActor implements NumberPrinter {
 
 	@Override
 	public int toNumber(List<Integer> nums) {
-		ActorSystem system = ActorSystem.create("print");
 		AtomicInteger sum = new AtomicInteger();
-		for (int num : nums) {
-			final ActorRef actor = system.actorOf(Props.create(
-				() -> this
-			), "master");
-		}
-		return 0;
-		
-		// Props.create((UntypedActorFactory) () -> new Querier(question, engines, result));
-	}
-
-	@Override
-	public void onReceive(Object obj) throws Exception {
-		if (obj instanceof Result) {
-			
-		}
-		
+		ActorSystem system = ActorSystem.create("print");
+		final ActorRef actor = system.actorOf(Props.create(PrintReqActor.class, () -> new PrintReqActor(sum, nums)), "master");
+		actor.tell(new Object(), ActorRef.noSender());
+		while (!actor.isTerminated());
+		return sum.get();
 	}
 }

@@ -3,6 +3,12 @@ package org.chirs.study.concurrency.flavors.actor;
 import akka.actor.UntypedActor;
 
 public class PrintActor extends UntypedActor {
+	
+	private Result result;
+	
+	public PrintActor(Result result) {
+		this.result = result;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -12,12 +18,12 @@ public class PrintActor extends UntypedActor {
 		if (obj instanceof Message) {
 			Message message = (Message) obj;
 			int num = message.getNum();
-			System.out.println(num + "\t");
-			message.getSum().addAndGet(num);
-			getSender().tell(new Result(message.getSum()), getSelf());
+			System.out.print(num + "\t");
+			result.getSum().addAndGet(num);
+			getSender().tell(result, getSelf());
+			getContext().stop(getSelf());
 		} else {
 			unhandled(obj);
 		}
 	}
-
 }

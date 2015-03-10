@@ -24,12 +24,12 @@ public class NakedThread implements NumberPrinter {
 	 */
 	@Override
 	public int toNumber(List<Integer> nums) {
-		AtomicInteger result = new AtomicInteger();
+		AtomicInteger sum = new AtomicInteger();
 		for (int num : nums) {
 			Thread thread = new Thread(
 				() -> {
 					System.out.print(num + "\t");
-					result.addAndGet(num);
+					sum.addAndGet(num);
 				}
 			);
 			thread.start();
@@ -40,6 +40,6 @@ public class NakedThread implements NumberPrinter {
 			}
 		}
 		System.out.println();
-		return result.get();
+		return sum.get();
 	}
 }

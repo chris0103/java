@@ -26,13 +26,13 @@ public class Executor implements NumberPrinter {
 	 */
 	@Override
 	public int toNumber(List<Integer> nums) {
-		AtomicInteger result = new AtomicInteger();
+		AtomicInteger sum = new AtomicInteger();
 		ExecutorService executor = Executors.newFixedThreadPool(4);
 		for (int num : nums) {
 			executor.submit(
 				() -> {
 					System.out.print(num + "\t");
-					result.addAndGet(num);
+					sum.addAndGet(num);
 				}
 			);
 		}
@@ -43,6 +43,6 @@ public class Executor implements NumberPrinter {
 			logger.error("Failed to await executor termination.", e);
 		}
 		System.out.println();
-		return result.get();
+		return sum.get();
 	}
 }

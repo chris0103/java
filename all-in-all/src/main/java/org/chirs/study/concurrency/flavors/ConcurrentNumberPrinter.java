@@ -3,12 +3,15 @@ package org.chirs.study.concurrency.flavors;
 import java.util.Arrays;
 import java.util.List;
 
+import org.chirs.study.concurrency.flavors.actor.Actor;
+
 public class ConcurrentNumberPrinter {
 
 	private NumberPrinter[] numPrinters = new NumberPrinter[] {
-			new NakedThread(), 
-			new Executor(), 
-			new ForkJoin(),
+			// new NakedThread(), 
+			// new Executor(), 
+			// new ForkJoin(),
+			new Actor(),
 	};
 	
 	public void printNumber(List<Integer> numbers) throws InterruptedException {
