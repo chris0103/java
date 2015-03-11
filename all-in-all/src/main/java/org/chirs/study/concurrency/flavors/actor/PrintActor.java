@@ -21,7 +21,6 @@ public class PrintActor extends UntypedActor {
 			System.out.print(num + "\t");
 			result.getSum().addAndGet(num);
 			getSender().tell(result, getSelf());
-			getContext().stop(getSelf());
 		} else {
 			unhandled(obj);
 		}

@@ -42,7 +42,6 @@ public class Executor implements NumberPrinter {
 		} catch (InterruptedException e) {
 			logger.error("Failed to await executor termination.", e);
 		}
-		System.out.println();
 		return sum.get();
 	}
 }

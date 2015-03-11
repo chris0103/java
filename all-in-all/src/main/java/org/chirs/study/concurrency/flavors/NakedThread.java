@@ -39,7 +39,6 @@ public class NakedThread implements NumberPrinter {
 				logger.error("Failed to join thread.", e);
 			}
 		}
-		System.out.println();
 		return sum.get();
 	}
 }

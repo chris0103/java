@@ -22,9 +22,8 @@ public class PrintReqActor extends UntypedActor {
 	public void onReceive(Object obj) throws Exception {
 		if (obj instanceof Result) {
 			retCount++;
-			System.out.println("Received result #" + retCount);
 			if (retCount == nums.size()) {
-				getContext().stop(getSelf());
+				getContext().system().shutdown();
 			}
 		} else {
 			for (int num : nums) {

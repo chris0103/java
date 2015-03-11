@@ -13,7 +13,7 @@ public class Actor implements NumberPrinter {
 
 	@Override
 	public String getPrinterName() {
-		return "The print actor";
+		return "The actor printer";
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class Actor implements NumberPrinter {
 		ActorSystem system = ActorSystem.create("print");
 		final ActorRef actor = system.actorOf(Props.create(PrintReqActor.class, () -> new PrintReqActor(sum, nums)), "master");
 		actor.tell(new Object(), ActorRef.noSender());
-		while (!actor.isTerminated());
+		while (!system.isTerminated());
 		return sum.get();
 	}
 }
