@@ -7,13 +7,11 @@ public class SafeListener {
 	
 	private final EventListener listener;
 	
-	private String secret = "I have a safe secret that I will never tell others...";
-	
 	private SafeListener() {
 		listener = new EventListener() {
 			
 			public void onEvent(Event e) {
-				e.setEventMessage(SafeListener.this.secret);
+				// do something...
 			}
 		};
 	}
