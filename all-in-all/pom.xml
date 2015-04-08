@@ -44,7 +44,12 @@
 	  <groupId>com.typesafe.akka</groupId>
 	  <artifactId>akka-actor_2.11</artifactId>
 	  <version>2.3.9</version>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+    </dependency>      
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
