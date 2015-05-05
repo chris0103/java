@@ -10,6 +10,10 @@ import java.util.concurrent.FutureTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
+
 public class FutureDemo {
 
 	private static Logger logger = LoggerFactory.getLogger(FutureDemo.class);
@@ -51,6 +55,16 @@ public class FutureDemo {
 		} finally {
 			cleanup();
 		}
+	}
+	
+	public void listenableFutureSearch(final String target) {
+		ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
+		ListenableFuture<String> result = service.submit(new Callable<String>() {
+
+			public String call() throws Exception {
+				return searcher.search(target);
+			}
+		});
 	}
 	
 	private void displayText(String str) {
