@@ -148,16 +148,16 @@ public class Sortings {
 	 */
 	private static <T extends Comparable<? super T>> void quickSort(T[] data, int startIndex, int endIndex) {
 		if (startIndex < endIndex) {
-			int pivotIndex = partition(data, startIndex, endIndex);
+			int pivotIndex = partition2(data, startIndex, endIndex);
 			quickSort(data, startIndex, pivotIndex - 1);
 			quickSort(data, pivotIndex + 1, endIndex);
 		}
 	}
 	
 	/*
-	 * Quick sort partition method.
+	 * Quick sort partition method: in-place partition method.
 	 */
-	private static <T extends Comparable<? super T>> int partition(T[] data, int startIndex, int endIndex) {
+	private static <T extends Comparable<? super T>> int partition1(T[] data, int startIndex, int endIndex) {
 		T pivot = data[endIndex];
 		int i = startIndex - 1;
 		for (int j = startIndex; j < endIndex; j++) {
@@ -177,6 +177,40 @@ public class Sortings {
 			showData(data, ++round);
 		}
 		return i + 1;
+	}
+	
+	/*
+	 * Quick sort partition method: start-end partition method.
+	 */
+	private static <T extends Comparable<? super T>> int partition2(T[] data, int startIndex, int endIndex) {
+		T pivot = data[startIndex];
+		int i = startIndex;
+		int j = endIndex;
+		while (i < j) {
+			while (j > i && data[j].compareTo(pivot) >= 0) {
+				j--;
+			}
+			if (j > i) {
+				T temp = data[j];
+				data[j] = data[i];
+				data[i] = temp;
+				if (showProcedure == SHOW_PROCEDURE) {
+					showData(data, ++round);
+				}
+			}
+			while (i < j && data[i].compareTo(pivot) < 0) {
+				i++;
+			}
+			if (i < j) {
+				T temp = data[j];
+				data[j] = data[i];
+				data[i] = temp;
+				if (showProcedure == SHOW_PROCEDURE) {
+					showData(data, ++round);
+				}
+			}
+		}
+		return i;
 	}
 	
 	/*
