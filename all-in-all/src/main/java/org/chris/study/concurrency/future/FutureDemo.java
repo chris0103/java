@@ -10,6 +10,8 @@ import java.util.concurrent.FutureTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -65,6 +67,19 @@ public class FutureDemo {
 				return searcher.search(target);
 			}
 		});
+		
+		Futures.addCallback(result, new FutureCallback<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				displayText(result);
+			}
+
+			@Override
+			public void onFailure(Throwable t) {
+				logger.error("Failed to search archive: {}.", target, t);
+			}
+		});
 	}
 	
 	private void displayText(String str) {
@@ -77,6 +92,9 @@ public class FutureDemo {
 	
 	public static void main(String[] args) throws Exception {
 		FutureDemo demo = new FutureDemo();
-		demo.futureSearch("Woopee!");
+		String target = "Woopee!";
+		// demo.futureSearch(target);
+		// demo.futureTaskSearch(target);
+		demo.listenableFutureSearch(target);
 	}
 }
