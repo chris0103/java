@@ -12,15 +12,14 @@ public class UI {
 	
 	public static final UI NORMAL = new UI();
 	
-	public Font getStandardFont() {
-		return new Font("Dialog", Font.PLAIN, 18);
-	}
+	protected Font font = new Font("Book Antiqua", Font.PLAIN, 18);
 	
 	public TitledBorder createTitledBorder(String title) {
-		TitledBorder tb = BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), title, TitledBorder.LEFT, TitledBorder.TOP);
-		tb.setTitleColor(Color.black);
-		tb.setTitleFont(getStandardFont());
-		return tb;
+		TitledBorder border = BorderFactory.createTitledBorder(
+				BorderFactory.createBevelBorder(BevelBorder.RAISED), title, TitledBorder.LEFT, TitledBorder.TOP);
+		border.setTitleColor(Color.black);
+		border.setTitleFont(getFont());
+		return border;
 	}
 	
 	public JPanel createTitledPanel(String title, JPanel in) {
@@ -28,5 +27,9 @@ public class UI {
 		out.add(in);
 		out.setBorder(createTitledBorder(title));
 		return out;
+	}
+	
+	public Font getFont() {
+		return font;
 	}
 }
