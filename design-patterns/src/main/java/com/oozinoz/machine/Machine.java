@@ -1,12 +1,21 @@
 package com.oozinoz.machine;
 
 import java.util.List;
+import java.util.Set;
 
 public class Machine extends MachineComponent {
 
 	private boolean running = false;
 	private List<Object> material;
 	private List<Object> owners;
+	
+	/**
+	 * Create a machine with the given id.
+	 * @param id the identity of this machine
+	 */
+    public Machine(int id) {
+        super(id);
+    }
 	
 	@Override
 	public int getMachineCount() {
@@ -26,6 +35,12 @@ public class Machine extends MachineComponent {
 	@Override
 	public boolean isCompletelyUp() {
 		return !running;
+	}
+	
+	@Override
+	public boolean isTree(Set<MachineComponent> visited) {
+		visited.add(this);
+		return true;
 	}
 
 	@Override
