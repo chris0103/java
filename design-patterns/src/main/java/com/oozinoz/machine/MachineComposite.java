@@ -1,6 +1,7 @@
 package com.oozinoz.machine;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,8 +53,8 @@ public class MachineComposite extends MachineComponent {
 	}
 
 	@Override
-	public List<Object> getMaterial() {
-		List<Object> materialForAll = new ArrayList<Object>();
+	public Set<Object> getMaterial() {
+		Set<Object> materialForAll = new HashSet<Object>();
 		for (MachineComponent machine : machines) {
 			materialForAll.addAll(machine.getMaterial());
 		}
@@ -61,8 +62,8 @@ public class MachineComposite extends MachineComponent {
 	}
 
 	@Override
-	public List<Object> getOwners() {
-		List<Object> ownersForAll = new ArrayList<Object>();
+	public Set<Object> getOwners() {
+		Set<Object> ownersForAll = new HashSet<Object>();
 		for (MachineComponent machine : machines) {
 			ownersForAll.addAll(machine.getOwners());
 		}

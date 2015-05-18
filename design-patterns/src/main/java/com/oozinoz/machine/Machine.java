@@ -1,13 +1,12 @@
 package com.oozinoz.machine;
 
-import java.util.List;
 import java.util.Set;
 
 public class Machine extends MachineComponent {
 
 	private boolean running = false;
-	private List<Object> material;
-	private List<Object> owners;
+	private Set<Object> material;
+	private Set<Object> owners;
 	
 	/**
 	 * Create a machine with the given id.
@@ -23,12 +22,12 @@ public class Machine extends MachineComponent {
 	}
 
 	@Override
-	public List<Object> getMaterial() {
+	public Set<Object> getMaterial() {
 		return material;
 	}
 
 	@Override
-	public List<Object> getOwners() {
+	public Set<Object> getOwners() {
 		return owners;
 	}
 

@@ -44,9 +44,9 @@ public abstract class MachineComponent {
 	
 	public abstract int getMachineCount();
 	
-	public abstract List<Object> getMaterial();
+	public abstract Set<Object> getMaterial();
 	
-	public abstract List<Object> getOwners();
+	public abstract Set<Object> getOwners();
 	
 	public abstract boolean isCompletelyUp();
 	
