@@ -1,25 +1,19 @@
 package app.observer.ballistics;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-public class BallisticsLabel extends JLabel implements ChangeListener {
+public class BallisticsLabel extends JLabel implements Observer {
 
-	private double tPeak;
-	private JSlider slider;
-	
-	public BallisticsLabel(JSlider slider) {
-		this.slider = slider;
-		slider.addChangeListener(this);
+	public BallisticsLabel(Tpeak tPeak) {
+		tPeak.addObserver(this);
 	}
-	
-	public void stateChanged(ChangeEvent e) {
-		double val = slider.getValue();
-		double max = slider.getMaximum();
-		double min = slider.getMinimum();
-		tPeak = (val - min) / (max - min);
+
+	public void update(Observable obj, Object arg) {
+		Tpeak tPeak = (Tpeak) obj;
+		setText(String.valueOf(tPeak.getValue()));
 		repaint();
 	}
 }
