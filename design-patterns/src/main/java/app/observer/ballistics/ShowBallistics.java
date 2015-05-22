@@ -51,7 +51,7 @@ public class ShowBallistics {
 		return burnPanel;
 	}
 	
-	public BallisticsPanel thrustPanel() {
+	private BallisticsPanel thrustPanel() {
 		if (thrustPanel == null) {
 			thrustPanel = new BallisticsPanel(Ballistics.thrust(), tPeak);
 			thrustPanel.setPreferredSize(new Dimension(300, 200));
@@ -81,7 +81,7 @@ public class ShowBallistics {
 		return valueLabel;
 	}
 	
-	public JSlider slider() {
+	private JSlider slider() {
 		if (slider == null) {
 			slider = new JSlider();
 			sliderMax = slider.getMaximum();
