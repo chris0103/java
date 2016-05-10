@@ -14,13 +14,21 @@ public class RandomHistoryLocator {
 	
 	private long timeScope = (long) (1000 * 86400 * 365.25 * 10000);	// 10000 years
 	
-	public void randomLocationAndTime() {
+	public void randomLocationAndTime(boolean usingDegree) {
 		LatLng location = LatLng.random();
 		long historyTimestamp = System.currentTimeMillis() - timeScope + (long) (random.nextDouble() * timeScope);
 		Calendar history = new GregorianCalendar();
 		history.setTimeInMillis(historyTimestamp);
 		String dateStr = format.format(history.getTime());
-		System.out.println("Time: " + dateStr + ", location: (" + decimalToDMS(location.getLongitude(), true) + ", " + decimalToDMS(location.getLatitude(), false) + ")");
+		double longitude = location.getLongitude();
+		double latitude = location.getLatitude();
+		String longitudeStr = String.valueOf(longitude);
+		String latitudeStr = String.valueOf(latitude);
+		if (usingDegree) {
+		    longitudeStr = decimalToDMS(longitude, true);
+		    latitudeStr = decimalToDMS(latitude, false);
+		}
+		System.out.println("Time: " + dateStr + ", location: (" + longitudeStr + ", " + latitudeStr + ")");
 	}
 	
 	private String decimalToDMS(double coord, boolean isLongtitude) {
@@ -96,6 +104,6 @@ public class RandomHistoryLocator {
 	
 	public static void main(String[] args) {
 		RandomHistoryLocator locator = new RandomHistoryLocator();
-		locator.randomLocationAndTime();
+		locator.randomLocationAndTime(false);
 	}
 }
