@@ -41,7 +41,7 @@ public class FireFoxFavoritesViewer {
 		subMetas.put("伯乐在线", 20);
 		subMetas.put("果壳网", 20);
 		subMetas.put("华尔街日报", 25);
-		subMetas.put("Slashdot", 15);
+		subMetas.put("Slashdot", 25);
 		subMetas.put("Coding Horror", 10);
 		subMetas.put("Study Hacks", 10);
 		subMetas.put("超越防火墙", 25);

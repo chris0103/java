@@ -20,7 +20,7 @@ public class ClassNumCounter {
 	private static int totalClassCounts = 0;
 	private static int totalReadCounts = 0;
 	private static String indent = "";
-	private static String pathTemplate = "C:\\chris\\sandbox\\workspace\\project\\src\\com\\ibm\\genelco\\";
+	private static String pathTemplate = "D:\\sandbox\\workspace\\project\\src\\main\\java\\";
 	private static PrintWriter pw;
 	
 	public void countClass(File dir, String indent) throws IOException {
@@ -77,16 +77,24 @@ public class ClassNumCounter {
 		}
 		pw = new PrintWriter(new BufferedOutputStream(new FileOutputStream(outputFile)));
 		String[] projects = new String[] {
-			"common-accounting", "common-agency", "common-bank", "common-client", 
-			"common-cmc", "common-commission", "common-core", "common-dictionary", 
-			"common-kernel", "common-security", "common-taxusa", "common-userdata", 
-			"grouplic-contract", "grouplic-dao", "grouplic-entity", "grouplic-intepreter", 
-			"grouplic-orm",	"grouplic-present", "grouplic-service", "grouplic-web",
+			// "bcbs", 
+			// "tif-cca", 
+			// "tif-ccaapi", 
+			"tif-core", 
+			// "tif-grid", 
+			// "tif-idsync", 
+			// "tif-sso", 
+			// "tif-system", 
+			"tif-utils", 
+			// "tif-webcore"
 		};
 		for (String project : projects) {
 			classCounts = 0;
 			readCounts = 0;
 			String currentPath = pathTemplate.replace("project", project);
+			if (project.equals("bcbs")) {
+				currentPath = currentPath.replace("main\\", "");
+			}
 			pw.println("===PROJECT " + project + "===");
 			File root = new File(currentPath);
 			ClassNumCounter counter = new ClassNumCounter();
@@ -98,9 +106,9 @@ public class ClassNumCounter {
 		pw.println("Total classes: " + totalClassCounts + ", total read " + totalReadCounts + ". Total prgress: " + numberFormat.format(totalReadRate * 100) + "%");
 		
 		Calendar onBoard = Calendar.getInstance();
-		onBoard.set(Calendar.YEAR, 2015);
-		onBoard.set(Calendar.MONTH, Calendar.SEPTEMBER);
-		onBoard.set(Calendar.DAY_OF_MONTH, 1);
+		onBoard.set(Calendar.YEAR, 2013);
+		onBoard.set(Calendar.MONTH, Calendar.OCTOBER);
+		onBoard.set(Calendar.DAY_OF_MONTH, 15);
 		Calendar today = Calendar.getInstance();
 		long days = (today.getTimeInMillis() - onBoard.getTimeInMillis()) / (1000 * 60 * 60 * 24) + 1;
 		int daysToBeKing = (int) (days / totalReadRate) + 1;

@@ -7,27 +7,20 @@ public class ReadingScheduler {
 
 	private static SimpleDateFormat format = new SimpleDateFormat("MM-dd");
 	
-	public void scheduleReading(String title, int pageStart, int pageEnd, int quota, boolean atWork) {
-	    int pages = pageEnd - pageStart + 1;
+	public void scheduleReading(String title, int pages, int quota) {
 		System.out.println("Reading schedule for " + title);
 		int days = Math.round(((float) pages) / ((float) quota));
-		int progress = pageStart - 1;
+		int progress = 0;
 		Calendar schedule = Calendar.getInstance();
 		schedule.roll(Calendar.DAY_OF_WEEK, false);
-		while (progress < pageEnd) {
+		while (progress < pages) {
 			schedule.roll(Calendar.DAY_OF_YEAR, true);
-			if (atWork) {
-			    if (schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-			        continue;
-			    }
-			} else {
-	            if (schedule.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-	                continue;
-	            }
+			if (schedule.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+				continue;
 			}
 			progress += quota;
-			if (progress > pageEnd) {
-				progress = pageEnd;
+			if (progress > pages) {
+				progress = pages;
 			}
 			System.out.println(format.format(schedule.getTime()) + ":\t" + progress + "\t\t[ ]");
 		}
@@ -35,8 +28,7 @@ public class ReadingScheduler {
 	}
 	
 	public static void main(String[] args) {
-	    String title = "Apache MyFaces 1.2 Web Application Development";
 		ReadingScheduler scheduler = new ReadingScheduler();
-		scheduler.scheduleReading(title, 303, 409, 3, false);
+		scheduler.scheduleReading("Apache MyFaces 1.2 Web Application Development", 409, 5);
 	}
 }
