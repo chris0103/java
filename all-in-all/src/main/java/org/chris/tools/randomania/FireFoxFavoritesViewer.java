@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
+
 public class FireFoxFavoritesViewer {
 	
 	private static final String USER_PLACEHOLDER = "<USER>";
@@ -24,6 +26,8 @@ public class FireFoxFavoritesViewer {
 			+ " LEFT JOIN moz_places plc ON child_bm.fk = plc.id"
 			+ " WHERE (parent_bm.title is not null and parent_bm.title != '') AND ((child_bm.title IS NOT null AND child_bm.title != '')) AND child_bm.fk IS NOT null"
 			+ " ORDER BY parent_bm.title, child_bm.position";
+	
+	private static Logger logger = Logger.getLogger(FireFoxFavoritesViewer.class);
 	
 	private String user;
 	private String profile;
@@ -70,6 +74,7 @@ public class FireFoxFavoritesViewer {
 		Connection conn = DriverManager.getConnection(SQLITE_URL.replace(USER_PLACEHOLDER, user).replace(PROFILE_PLACEHOLDER, profile));
 		conn.setReadOnly(true);
 		Statement statement = conn.createStatement();
+		logger.debug("Querying using: " + SQL);
 		ResultSet rs = statement.executeQuery(SQL);
 		while (rs.next()) {
 			Site site = new Site();

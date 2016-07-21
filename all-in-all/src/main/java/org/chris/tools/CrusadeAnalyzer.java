@@ -22,27 +22,20 @@ public class CrusadeAnalyzer {
 
 	/** Locations for major tasks **/
 	private static final Location[] MAJOR = new Location[] {
-		new Location(11, 4), new Location(17, 5), new Location(17, 6), new Location(17, 7), new Location(17, 8), new Location(17, 9), new Location(11, 10),
-		new Location(11, 11), new Location(17, 12), new Location(17, 13), new Location(17, 14), new Location(17, 15), new Location(17, 16), new Location(11, 17)
+		new Location(2, 5), new Location(8, 6), new Location(8, 7), new Location(8, 8), new Location(8, 9), new Location(8, 10),
+		new Location(2, 12), new Location(8, 13), new Location(8, 14), new Location(8, 15), new Location(8, 16), new Location(8, 17)
 	};
 	
 	/** Locations for minor tasks **/
 	private static final Location[] MINOR = new Location[] {
-		new Location(2, 2), new Location(3, 2), new Location(4, 2), new Location(5, 2), new Location(6, 2)
+		new Location(2, 2), new Location(3, 2), new Location(4, 2), new Location(5, 2), 
 	};
-	
-	/** Locations for video tasks **/
-	private static final Location[] VIDEO = new Location[] {
-		new Location(21, 4), new Location(21, 5), new Location(21, 6), new Location(21, 7), new Location(21, 8), new Location(21, 9),
-		new Location(21, 11), new Location(21, 12), new Location(21, 13), new Location(21, 14), new Location(21, 15), new Location(21, 16)
-	};
-	
-	private static final Location special = new Location(16, 19);
-	private static final Location delay = new Location(17, 19);
 	
 	private static Logger logger = LoggerFactory.getLogger(CrusadeAnalyzer.class);
 	
-	private static File file = new File("crusade.xlsx");
+	private static File file = new File("C:\\Users\\IBM_ADMIN\\Desktop\\concentrism.xlsx");
+	
+	// private static File file = new File("scheduler.xlsx");
 	
 	public void readAllContent(Sheet sheet) {
 		logger.info("Open sheet 1, which contains {} rows", (sheet.getLastRowNum() + 1));
@@ -104,10 +97,7 @@ public class CrusadeAnalyzer {
 		for (Cell cell : cells) {
 			System.out.print(cell.getStringCellValue() + "\t");
 		}
-		System.out.print("\t");
-		Cell specialCell = readCell(sheet, special);
-		Cell delayCell = readCell(sheet, delay);
-		System.out.println(specialCell.getStringCellValue() + "\t" + delayCell.getStringCellValue());
+		System.out.println();
 	}
 	
 	public void readMinor(Sheet sheet) {
@@ -118,40 +108,24 @@ public class CrusadeAnalyzer {
 		System.out.println();
 	}
 	
-	public void readVideo(Sheet sheet) {
-		List<Cell> cells = readRegion(sheet, VIDEO);
-		for (Cell cell : cells) {
-			System.out.print(cell.getStringCellValue() + "\t");
-		}
-		System.out.println();
-	}
-	
-	public void analyzeMajor(Sheet sheet) {
+	public float analyzeMajor(Sheet sheet) {
 		List<Cell> cells = readRegion(sheet, MAJOR);
 		int owedUnits = 0;
 		for (Cell cell : cells) {
 			owedUnits += extractIntegerUnitFromParenthesis(cell.getStringCellValue());
 		}
-		owedUnits -= extractIntegerAfterColon(readCell(sheet, special).getStringCellValue());
 		System.out.println(owedUnits + " major units owed in total.");
+		return owedUnits;
 	}
 	
-	public void analyzeMinor(Sheet sheet) {
+	public float analyzeMinor(Sheet sheet) {
 		List<Cell> cells = readRegion(sheet, MINOR);
 		int owedUnits = 0;
 		for (Cell cell : cells) {
 			owedUnits += extractIntegerUnitFromParenthesis(cell.getStringCellValue());
 		}
 		System.out.println(owedUnits + " minor units owed in total.");
-	}
-	
-	public void analyzeVideo(Sheet sheet) {
-		float owedUnits = 0;
-		List<Cell> cells = readRegion(sheet, VIDEO);
-		for (Cell cell : cells) {
-			owedUnits += extractFloatUnitFromParenthesis(cell.getStringCellValue());
-		}
-		System.out.println(owedUnits + " video units owed in total.");
+		return owedUnits;
 	}
 	
 	private int extractIntegerUnitFromParenthesis(String str) {
@@ -162,24 +136,7 @@ public class CrusadeAnalyzer {
 		}
 		return 0;
 	}
-	
-	private int extractIntegerAfterColon(String str) {
-		int colonIndex = str.indexOf(':');
-		if (colonIndex != -1) {
-			return Integer.parseInt(str.substring(colonIndex + 1).trim());
-		}
-		return 0;
-	}
-	
-	private float extractFloatUnitFromParenthesis(String str) {
-		int startIndex = str.indexOf('(');
-		int endIndex = str.indexOf(')');
-		if (startIndex != -1 && endIndex != -1) {
-			return Float.parseFloat(str.substring(startIndex + 1, endIndex));
-		}
-		return 0;
-	}
-	
+
 	private static class Location {
 		
 		private int row;
@@ -211,10 +168,9 @@ public class CrusadeAnalyzer {
 			// ma.readAllContent(sheet);
 			ma.readMajor(sheet);
 			ma.readMinor(sheet);
-			ma.readVideo(sheet);
-			ma.analyzeMajor(sheet);
-			ma.analyzeMinor(sheet);
-			ma.analyzeVideo(sheet);
+			float major = ma.analyzeMajor(sheet);
+			float minor = ma.analyzeMinor(sheet);
+			System.out.println("Total: " + (major + minor));
 		} catch (FileNotFoundException e) {
 			logger.error("File not found.", e);
 		} catch (IOException e) {
