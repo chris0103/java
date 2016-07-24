@@ -215,3 +215,5 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.xlsx
+
+all-in-all/src/main/java/org/chris/tools/homebred

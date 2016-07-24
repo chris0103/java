@@ -10,11 +10,26 @@ public class OrderRandoms {
 
 	public void generateTaskOrder() {
 		Set<String> taskSet = new HashSet<String>();
-		taskSet.add("Major");
-		taskSet.add("Minor");
-		taskSet.add("Videos");
-		taskSet.add("Board");
+		
+		// in process task set
+		/*
+		taskSet.add("Magazine");
+		taskSet.add("Game");
+		taskSet.add("Songs");
 		taskSet.add("Arrangement");
+		taskSet.add("Board");
+		*/
+		
+		/*
+		 */
+		taskSet.add("战国无双");
+		taskSet.add("使命召唤-2");
+		taskSet.add("樱花大战");
+		taskSet.add("风色幻想");
+		taskSet.add("Movies");
+		taskSet.add("TV Series");
+		// taskSet.add("");
+		
 		List<String> taskList = new ArrayList<String>(taskSet);
 		Collections.shuffle(taskList);
 		
@@ -38,16 +53,6 @@ public class OrderRandoms {
 	
 	public void generateVideoOrder() {
 		Set<String> videoSet = new HashSet<String>();
-		// videoSet.add("从地球出发.NASA任务50年");
-		// videoSet.add("二次大戰全彩實錄");
-		// videoSet.add("奋斗");
-		// videoSet.add("航空母舰日志");
-		// videoSet.add("裸婚时代");
-		// videoSet.add("生活大爆炸");
-		// videoSet.add("新幕府大将军德川家康");
-		// videoSet.add("兄弟连");
-		// videoSet.add("易中天评三国");
-		// videoSet.add("自然界大事件");
 		
 		// in process video set
 		videoSet.add("Gossip Girl");
@@ -55,8 +60,14 @@ public class OrderRandoms {
 		videoSet.add("风林火山");
 		videoSet.add("名侦探柯南");
 		videoSet.add("耶鲁大学开放课程-哲学：死亡");
+		
+		 
 		/*
+		videoSet.add("百战经典");
+		videoSet.add("二胎时代");
 		 */
+		// videoSet.add("");
+		 
 		List<String> videoList = new ArrayList<String>(videoSet);
 		Collections.shuffle(videoList);
 		
