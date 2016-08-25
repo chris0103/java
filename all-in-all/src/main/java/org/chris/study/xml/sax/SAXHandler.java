@@ -22,7 +22,7 @@ public class SAXHandler extends DefaultHandler {
 	
 	@Override
 	public void endDocument() throws SAXException {
-		logger.debug("Finished parsing document");
+		logger.debug("Finished parsing document.");
 	}
 	
 	@Override
@@ -67,55 +67,46 @@ public class SAXHandler extends DefaultHandler {
 
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
-		// TODO Auto-generated method stub
 		return super.resolveEntity(publicId, systemId);
 	}
 
 	@Override
 	public void notationDecl(String name, String publicId, String systemId) throws SAXException {
-		// TODO Auto-generated method stub
 		super.notationDecl(name, publicId, systemId);
 	}
 
 	@Override
 	public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) throws SAXException {
-		// TODO Auto-generated method stub
 		super.unparsedEntityDecl(name, publicId, systemId, notationName);
 	}
 
 	@Override
 	public void setDocumentLocator(Locator locator) {
-		// TODO Auto-generated method stub
 		super.setDocumentLocator(locator);
 	}
 
 	@Override
 	public void processingInstruction(String target, String data) throws SAXException {
-		// TODO Auto-generated method stub
 		super.processingInstruction(target, data);
 	}
 
 	@Override
 	public void skippedEntity(String name) throws SAXException {
-		// TODO Auto-generated method stub
 		super.skippedEntity(name);
 	}
 
 	@Override
 	public void warning(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
 		super.warning(e);
 	}
 
 	@Override
 	public void error(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
 		super.error(e);
 	}
 
 	@Override
 	public void fatalError(SAXParseException e) throws SAXException {
-		// TODO Auto-generated method stub
 		super.fatalError(e);
 	}
 }

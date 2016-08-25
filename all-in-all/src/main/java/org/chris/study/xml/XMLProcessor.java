@@ -9,19 +9,19 @@ public interface XMLProcessor<T> {
 	/**
 	 * Initializes the XML processor itself.
 	 */
-	public void setup();
+	public void setup() throws Exception;
 	
 	/**
 	 * Walks through a given XML document.
 	 * @param document
 	 */
-	public void walkDocument(T document);
+	public void walkDocument(T document) throws Exception;
 	
 	/**
 	 * Creates an XML document from scratch.
 	 * @return
 	 */
-	public T createDocument();
+	public T createDocument() throws Exception;
 
 	/**
 	 * Modifies XML document part using given value.
@@ -30,5 +30,5 @@ public interface XMLProcessor<T> {
 	 * @param value
 	 * @return
 	 */
-	public Object modifyDocument(T document, String path, Object value);
+	public Object modifyDocument(T document, String path, Object value) throws Exception;
 }

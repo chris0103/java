@@ -33,6 +33,8 @@ public class SAXProcessor implements XMLProcessor<File> {
 	private final Logger logger = LoggerFactory.getLogger(SAXProcessor.class);
 
 	private SAXParser parser;
+	
+	private SAXHandler handler;
 
 	@Override
 	public void setup() {
@@ -43,6 +45,7 @@ public class SAXProcessor implements XMLProcessor<File> {
 			parser = factory.newSAXParser();
 			logger.debug("SAX parser created: {}", parser);
 			showFeaturesAndProperties();
+			handler = new SAXHandler();
 		} catch (ParserConfigurationException | SAXException e) {
 			logger.error("Failed to get SAX parser.", e);
 		}
@@ -51,7 +54,6 @@ public class SAXProcessor implements XMLProcessor<File> {
 	@Override
 	public void walkDocument(File document) {
 		logger.debug("Starting parsing of document {}", document);
-		SAXHandler handler = new SAXHandler();
 		try {
 			parser.parse(document, handler);
 		} catch (SAXException e) {

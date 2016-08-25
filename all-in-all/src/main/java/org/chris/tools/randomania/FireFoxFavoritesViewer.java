@@ -37,8 +37,14 @@ public class FireFoxFavoritesViewer {
 	private Map<String, List<Site>> siteMap = new TreeMap<String, List<Site>>();
 
 	static {
+		subMetas.put("豆瓣", 10);
+		subMetas.put("果壳网", 10);
+		subMetas.put("微博", 10);
+		subMetas.put("Wikipedia", 10);
+		subMetas.put("知乎", 10);
+		
 		subMetas.put("Latest Headlines", 62);
-		subMetas.put("Java World", 70);
+		subMetas.put("Java World", 100);
 		subMetas.put("财经网", 25);
 		subMetas.put("程序员", 20);
 		subMetas.put("外刊IT评论", 0);
