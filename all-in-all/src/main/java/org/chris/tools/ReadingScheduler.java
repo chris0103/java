@@ -23,7 +23,7 @@ public class ReadingScheduler {
 			if (progress > end) {
 				progress = end;
 			}			
-			// System.out.print(format.format(schedule.getTime()) + "\t");
+			System.out.print(format.format(schedule.getTime()) + "\t");
 			System.out.println(progress);
 		}
 		System.out.println("Totally " + days + " days.");
@@ -31,6 +31,6 @@ public class ReadingScheduler {
 	
 	public static void main(String[] args) {
 		ReadingScheduler scheduler = new ReadingScheduler();
-		scheduler.scheduleReading("Java Concurrency in Practice", 0, 425, 4);
+		scheduler.scheduleReading("Billboard", 0, 260, 1);
 	}
 }
