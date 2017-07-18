@@ -39,23 +39,24 @@ public class FireFoxFavoritesViewer {
 	static {
 		subMetas.put("豆瓣", 10);
 		subMetas.put("果壳网", 10);
-		subMetas.put("微博", 10);
 		subMetas.put("Wikipedia", 10);
 		subMetas.put("知乎", 10);
+		subMetas.put("pocket", 10);
 		
-		subMetas.put("Latest Headlines", 62);
+		subMetas.put("Latest Headlines", 35);
+		subMetas.put("Coding Horror", 10);
+		subMetas.put("FT中文网", 10);
 		subMetas.put("Java World", 100);
+		subMetas.put("Slashdot", 25);
+		subMetas.put("Study Hacks", 10);
+		subMetas.put("伯乐在线", 20);
 		subMetas.put("财经网", 25);
 		subMetas.put("程序员", 20);
-		subMetas.put("外刊IT评论", 0);
-		subMetas.put("伯乐在线", 20);
 		subMetas.put("果壳网", 20);
 		subMetas.put("华尔街日报", 25);
-		subMetas.put("Slashdot", 25);
-		subMetas.put("Coding Horror", 10);
-		subMetas.put("Study Hacks", 10);
+		subMetas.put("孟岩", 20);
+		subMetas.put("外刊IT评论", 0);
 		subMetas.put("超越防火墙", 25);
-		subMetas.put("FT中文网", 10);
 		for (String sub : subMetas.keySet()) {
 			int size = subMetas.get(sub);
 			for (int i = 1; i <= size; i++) {

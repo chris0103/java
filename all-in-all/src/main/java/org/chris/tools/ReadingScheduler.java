@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class ReadingScheduler {
 
-	private static SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+	private static SimpleDateFormat format = new SimpleDateFormat("MM/dd");
 	
 	public void scheduleReading(String title, int start, int end, int quota) {
 		System.out.println("Reading schedule for " + title);
@@ -23,13 +23,13 @@ public class ReadingScheduler {
 			if (progress > end) {
 				progress = end;
 			}
-			System.out.println(format.format(schedule.getTime()) + ":\t" + progress + "\t\t[ ]");
+			System.out.println(format.format(schedule.getTime()) + "\t" + progress);
 		}
 		System.out.println("Totally " + days + " days.");
 	}
 	
 	public static void main(String[] args) {
 		ReadingScheduler scheduler = new ReadingScheduler();
-		scheduler.scheduleReading("Spring in Action 4", 0, 626, 3);
+		scheduler.scheduleReading("Billboard", 0, 256, 1);
 	}
 }

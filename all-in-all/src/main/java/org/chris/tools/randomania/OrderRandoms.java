@@ -10,21 +10,10 @@ public class OrderRandoms {
 
 	public void generateTaskOrder() {
 		Set<String> taskSet = new HashSet<String>();
-		
-		// in process task set
-		/*
-		taskSet.add("Magazine");
-		taskSet.add("Game");
-		taskSet.add("Songs");
-		taskSet.add("Arrangement");
-		taskSet.add("Board");
-		*/
-		
-		/*
-		 */
-		taskSet.add("战国无双");
-		taskSet.add("使命召唤-2");
-		taskSet.add("樱花大战");
+
+		taskSet.add("The Stream Zoo");
+		taskSet.add("Spring Webmvc");
+		taskSet.add("");
 		taskSet.add("风色幻想");
 		taskSet.add("Movies");
 		taskSet.add("TV Series");
