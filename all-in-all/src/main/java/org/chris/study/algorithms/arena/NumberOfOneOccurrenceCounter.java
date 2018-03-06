@@ -27,12 +27,13 @@ public class NumberOfOneOccurrenceCounter {
 	}
 	
 	/**
-	 * To divide the number into two parts, for example 21345 to [1, 1345] and [1346, 21345], with the latter size an exponent of 10. Then,<br />
+	 * Divide the number into two parts, for example 21345 to [1, 1345] and [1346, 21345], with the latter size having orders of magnitude of 10. Then 
+	 * count the latter one in the following rules:<br />
 	 * 1) count the occurrence of "1" at the topmost digit, if:<br />
 	 * &nbsp;&nbsp;a. the given number is 1xxxx, the occurence will be "xxxx + 1"<br />
 	 * &nbsp;&nbsp;b. the given number is nxxxx where n > 1, the occurrence will be 10000;<br />
 	 * 2) count the occurrence of "1" at lower digits, that will be all the possible permutation calculated by <b>firstDigit * (num.length - 1) * power(10, (num.length - 2))</b>;<br />
-	 * 3) send the first part ([1, 1345]) to recursion.
+	 * Then, send the first part ([1, 1345]) to the recursion above.
 	 * @param num
 	 * @return
 	 */

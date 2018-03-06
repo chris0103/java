@@ -227,9 +227,9 @@ public class Sortings {
 	
 	private static <T> void showData(Iterable<T> data, int round) {
 		if (round == 0) {
-			System.out.print("Origin : ");
+			System.out.print("Origin:\t\t");
 		} else {
-			System.out.print("Round " + round + ": ");
+			System.out.print("Round " + round + ":\t\t");
 		}
 		for (T t : data) {
 			System.out.print(t + "\t");
@@ -239,22 +239,14 @@ public class Sortings {
 	
 	private static <T> void showData(T[] data, int round) {
 		if (round == 0) {
-			System.out.print("Origin : ");
+			System.out.print("Origin:\t\t");
 		} else {
-			System.out.print("Round " + round + ": ");
+			System.out.print("Round " + round + ":\t\t");
 		}
 		for (T t : data) {
 			System.out.print(t + "\t");
 		}
 		System.out.println();
-	}
-	
-	/*
-	 * Accessor methods.
-	 */
-	
-	public static int getShowProcedure() {
-		return showProcedure;
 	}
 
 	public static void setShowProcedure(int showProcedure) {
@@ -266,10 +258,10 @@ public class Sortings {
 		Integer[] integers = new Integer[] {2, 8, 7, 1, 3, 5, 6, 4};
 		showData(integers, 0);
 		// integers = bubbleSort(integers);
-		// integers = insertionSort(integers, SHOW_PROCEDURE);
-		// integers = binaryInsertionSort(integers, SHOW_PROCEDURE);
-		integers = quickSort(integers);
-		System.out.print("Result : ");
+		// integers = insertionSort(integers);
+		integers = binaryInsertionSort(integers);
+		// integers = quickSort(integers);
+		System.out.print("Result:\t\t");
 		for (Integer i : integers) {
 			System.out.print(i + "\t");
 		}

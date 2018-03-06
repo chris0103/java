@@ -21,6 +21,6 @@ public class LettersShuffler {
 	}
 	
 	public static void main(String[] args) {
-		new LettersShuffler().shuffleLetters('A', 'M');
+		new LettersShuffler().shuffleLetters('A', 'I');
 	}
 }

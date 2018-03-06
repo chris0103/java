@@ -1,13 +1,13 @@
 package org.chris.study.algorithms.arena;
 
 /**
- * Challenge: reorder a integer array so that all the odd numbers are before the even numbers.  
+ * Challenge: reorder an integer array so that all the odd numbers are before the even numbers.  
  */
 public class ArrayReorderer {
 
 	/**
-	 * Having two indexes from the beginning and end of the array, move forward the beginning index until it encounters the first even number and move the end index backward until it encounters the first odd
-	 * number, then swap the two indexed number.
+	 * Having two indexes from the beginning and end of the array, move forward the beginning index until it encounters the first even number and move 
+	 * the end index backward until it encounters the first odd number, then swap the two indexed number.
 	 * @param array
 	 */
 	public void solution(int[] array) {
