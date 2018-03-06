@@ -13,7 +13,7 @@ public class ReadingScheduler {
 		int days = Math.round(((float) pages) / ((float) quota));
 		int progress = start;
 		Calendar schedule = Calendar.getInstance();
-		schedule.roll(Calendar.DAY_OF_YEAR, false);
+		// schedule.roll(Calendar.DAY_OF_YEAR, false);
 		while (progress < end) {
 			schedule.roll(Calendar.DAY_OF_YEAR, true);
 			if (schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || schedule.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
