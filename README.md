@@ -1,4 +1,4 @@
-all-in-all
+Java
 ==========
 
-This project holds all the personal programs for tools, study and other miscellanies.
+This project holds all the personal Java programs for tools, study and other miscellanies.
