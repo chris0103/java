@@ -4,14 +4,14 @@ import java.util.concurrent.Flow;
 import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.Flow.Subscription;
 
-public class AnimalScriber implements Subscriber<String> {
+public class AnimalSubscriber implements Subscriber<String> {
 
 	private final long bufferSize;
 
 	private Flow.Subscription subscription;
 	private long count;
 
-	public AnimalScriber(long bufferSize) {
+	public AnimalSubscriber(long bufferSize) {
 		this.bufferSize = bufferSize;
 	}
 
