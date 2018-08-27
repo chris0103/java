@@ -2,8 +2,8 @@ package org.chris.study.concurrency.jcip.examples.chap04;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Listing 4.9. Delegating thread safety to multiple underlying state variables.

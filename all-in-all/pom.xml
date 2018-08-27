@@ -23,7 +23,7 @@
 	<dependency>
 	  <groupId>org.xerial</groupId>
 	  <artifactId>sqlite-jdbc</artifactId>
-	  <version>3.7.2</version>
+	  <version>3.23.1</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.apache.poi</groupId>
@@ -64,7 +64,12 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
-    </dependency>	 
+    </dependency>	
+    <dependency>
+	  <groupId>org.apache.zookeeper</groupId>
+	  <artifactId>zookeeper</artifactId>
+	  <version>3.4.10</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
