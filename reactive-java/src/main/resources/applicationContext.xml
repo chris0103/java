@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="exchangeRatesService" class="example.rates.services.ExchangeRatesServiceImpl">
+    <constructor-arg>
+      <bean id="exchangeRatesAdapter" class="example.rates.adapter.ExchangeRatesAdapter"/>    		
+    </constructor-arg>
+  </bean>
+    
+  <bean id="strongerService" class="example.stronger.services.StrongerServiceImpl">
+    <constructor-arg>
+      <bean id="ratesAdapter" class="example.rates.adapter.ExchangeRatesAdapter"/>    		
+    </constructor-arg>
+  </bean>
+
+  <bean class="example.exceptions.InternalErrorMapper"/>
+  <bean class="example.exceptions.CurrencyNotFoundMapper"/>
+</beans>

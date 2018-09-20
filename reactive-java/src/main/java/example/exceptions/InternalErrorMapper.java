@@ -1,4 +1,4 @@
-package example.exception;
+package example.exceptions;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -7,6 +7,6 @@ public class InternalErrorMapper implements ExceptionMapper<InternalErrorExcepti
 
 	public Response toResponse(InternalErrorException exception) {
 
-	    return Response.status(500).entity(exception.getMessage()).type("text/plain").build();
+		return Response.status(500).entity(exception.getMessage()).type("text/plain").build();
 	}
 }
