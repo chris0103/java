@@ -6,10 +6,6 @@ import java.util.function.BiConsumer;
 
 public class CustomActor<T> implements Runnable {
 
-    static <T> CustomActor<T> create(BiConsumer<CustomActor<T>, T> behaviourHandler, BiConsumer<CustomActor<T>, Throwable> errorHandler) {
-        return new CustomActor<>(behaviourHandler, errorHandler);
-    }
-
     private final BiConsumer<CustomActor<T>, T> actionHandler;
 
     private final BiConsumer<CustomActor<T>, Throwable> errorHandler;
@@ -20,6 +16,10 @@ public class CustomActor<T> implements Runnable {
         this.mailbox = new ConcurrentLinkedQueue<>();
         this.actionHandler = behaviourHandler;
         this.errorHandler = errorHandler;
+    }
+
+    static <T> CustomActor<T> create(BiConsumer<CustomActor<T>, T> behaviourHandler, BiConsumer<CustomActor<T>, Throwable> errorHandler) {
+        return new CustomActor<>(behaviourHandler, errorHandler);
     }
 
     @Override

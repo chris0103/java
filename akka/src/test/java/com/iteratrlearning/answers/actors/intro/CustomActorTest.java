@@ -15,6 +15,12 @@ public class CustomActorTest {
 
     private static final long TEST_TIMEOUT = 500L;
 
+    private CustomActor<String> actor;
+
+    private BiConsumer<CustomActor<String>, String> behaviourHandler = mock(BiConsumer.class);
+
+    private BiConsumer<CustomActor<String>, Throwable> errorHandler = mock(BiConsumer.class);
+
     private static void attemptUntilPasses(final Runnable runnable) {
         final long limit = System.currentTimeMillis() + TEST_TIMEOUT;
 
@@ -33,12 +39,6 @@ public class CustomActorTest {
             throw lastThrowable;
         }
     }
-
-    private CustomActor<String> actor;
-
-    private BiConsumer<CustomActor<String>, String> behaviourHandler = mock(BiConsumer.class);
-
-    private BiConsumer<CustomActor<String>, Throwable> errorHandler = mock(BiConsumer.class);
 
     @Before
     public void setUp() {
