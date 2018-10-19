@@ -21,11 +21,11 @@ public class PongActorTest {
 	
 	ActorSystem system = ActorSystem.create();
 	
-	ActorRef actorRef = system.actorOf(Props.create(JavaPongActor.class), "BruceWillis");
+	ActorRef actorRef = system.actorOf(Props.create(JavaPongActor.class));
 
 	@Test
 	public void shouldReplyToPingWithPong() throws Exception {
-		Future<?> sFuture = ask(actorRef, "Ping", 1000);
+		final Future<?> sFuture = ask(actorRef, "Ping", 1000);
 		
 		@SuppressWarnings("unchecked")
 		final CompletionStage<String> cs = (CompletionStage<String>) toJava(sFuture);
