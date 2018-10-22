@@ -20,4 +20,13 @@ public class MessageActorTest {
 		MessageActor actor = testActor.underlyingActor();
 		assertEquals("hello!", actor.getMessage());
 	}
+	
+	@Test
+	public void testTwoMessages() {
+		TestActorRef<MessageActor> testActor = TestActorRef.create(system, Props.create(MessageActor.class));
+		testActor.tell("hello", ActorRef.noSender());
+		testActor.tell("world", ActorRef.noSender());
+		MessageActor actor = testActor.underlyingActor();
+		assertEquals("world", actor.getMessage());
+	}
 }
