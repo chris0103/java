@@ -9,7 +9,6 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import akka.actor.ActorRef;
@@ -30,8 +29,7 @@ public class PongActorTest {
 		@SuppressWarnings("unchecked")
 		final CompletionStage<String> cs = (CompletionStage<String>) toJava(sFuture);
 		
-		final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
-		assertEquals("Pong", jFuture.get(1000, TimeUnit.MILLISECONDS));
+		assertEquals("Pong", get(cs));
 	}
 
 	@Test(expected = ExecutionException.class)
@@ -41,64 +39,47 @@ public class PongActorTest {
 		@SuppressWarnings("unchecked")
 		final CompletionStage<String> cs = (CompletionStage<String>) toJava(sFuture);
 		
-		final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
-		jFuture.get(1000, TimeUnit.MILLISECONDS);
+		assertEquals("unknown message", get(cs));
 	}
-
-	// Future Examples
-	@Ignore
+	
 	@Test
 	public void shouldPrintToConsole() throws Exception {
 		askPong("Ping").thenAccept(x -> System.out.println("replied with: " + x));
 		Thread.sleep(100);
-		// no assertion - just prints to console. Try to complete a
-		// CompletableFuture instead.
+		// no assertion - just prints to console. Try to complete a CompletableFuture instead.
 	}
-
-	@Ignore
+	
 	@Test
 	public void shouldTransform() throws Exception {
 		char result = (char) get(askPong("Ping").thenApply(x -> x.charAt(0)));
 		assertEquals('P', result);
 	}
-
-	/**
-	 * There is was a bug with the scala-java8-compat library 0.3.0 -
-	 * thenCompose throws exception
-	 * https://github.com/scala/scala-java8-compat/issues/26
-	 *
-	 * I confirmed fixed in 0.6.0-SNAPSHOT (10 months later). Just in time for
-	 * publishing!
-	 */
-	@Ignore
+	
 	@Test
 	public void shouldTransformAsync() throws Exception {
-		CompletionStage cs = askPong("Ping").thenCompose(x -> askPong("Ping"));
+		CompletionStage<String> cs = askPong("Ping").thenCompose(x -> askPong("Ping"));
 		assertEquals(get(cs), "Pong");
 	}
-
-	@Ignore
+	
 	@Test
 	public void shouldEffectOnError() throws Exception {
-		askPong("cause error").handle((x, t) -> {
+		CompletionStage<String> cs = askPong("cause error").handle((x, t) -> {
 			if (t != null) {
 				System.out.println("Error: " + t);
 			}
 			return null;
 		});
+		assertEquals(null, get(cs));
 	}
-
-	@Ignore
+	
 	@Test
 	public void shouldRecoverOnError() throws Exception {
 		CompletionStage<String> cs = askPong("cause error").exceptionally(t -> {
 			return "default";
 		});
-
-		String result = (String) get(cs);
+		assertEquals("default", get(cs));
 	}
-
-	@Ignore
+	
 	@Test
 	public void shouldRecoverOnErrorAsync() throws Exception {
 		CompletionStage<String> cf = askPong("cause error")
@@ -106,14 +87,19 @@ public class PongActorTest {
 				.thenCompose(x -> x);
 		assertEquals("Pong", get(cf));
 	}
-
-	@Ignore
+	
 	@Test
-	public void shouldChainTogetherMultipleOperations() {
-		askPong("Ping").thenCompose(x -> askPong("Ping" + x)).handle((x, t) -> t != null ? "default" : x);
+	public void shouldChainTogetherMultipleOperations() throws Exception {
+		CompletionStage<String> cf = askPong("Ping").thenCompose(x -> askPong("Ping" + x)).handle((x, t) -> t != null ? "default" : x);
+		assertEquals("default", get(cf));
 	}
-
-	@Ignore
+	
+	@Test
+	public void shouldCombineFutures() throws Exception {
+		CompletionStage<String> cf = askPong("Ping").thenCombine(askPong("Ping"), (a, b) -> a + b);
+		assertEquals("PongPong", get(cf));
+	}
+	
 	@Test
 	public void shouldPrintErrorToConsole() throws Exception {
 		askPong("cause error").handle((x, t) -> {
@@ -125,14 +111,19 @@ public class PongActorTest {
 		Thread.sleep(100);
 	}
 
-	// Helpers
-	public Object get(CompletionStage cs) throws Exception {
-		return ((CompletableFuture<String>) cs).get(1000, TimeUnit.MILLISECONDS);
-	}
-
 	public CompletionStage<String> askPong(String message) {
-		Future sFuture = ask(actorRef, message, 1000);
-		final CompletionStage<String> cs = toJava(sFuture);
+		Future<?> sFuture = ask(actorRef, message, 1000);
+		
+		@SuppressWarnings("unchecked")
+		final CompletionStage<String> cs = (CompletionStage<String>) toJava(sFuture);
+		
 		return cs;
+	}
+	
+	public Object get(CompletionStage<?> cs) throws Exception {
+		@SuppressWarnings("unchecked")
+		Object result = ((CompletableFuture<String>) cs).get(1000, TimeUnit.MILLISECONDS);
+		
+		return result;
 	}
 }
