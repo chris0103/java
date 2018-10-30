@@ -1,6 +1,8 @@
 package com.akkademy.messages;
 
-public class SetRequest {
+import java.io.Serializable;
+
+public class SetRequest implements Serializable {
 
 	private final String key;
 
