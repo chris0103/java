@@ -2,6 +2,8 @@ package com.akkademy;
 
 import static akka.pattern.Patterns.ask;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Test;
 
 import com.akkademy.messages.GetRequest;
@@ -16,18 +18,25 @@ import scala.concurrent.Await;
 import scala.concurrent.Future;
 
 public class AskTest {
-    ActorRef articleParseActor = system.actorOf(Props.create(ParsingActor.class));
+	
+	private final ActorSystem system = ActorSystem.create("testSystem");
+    
+	private final Timeout timeout = new Timeout(10000, TimeUnit.MILLISECONDS);
 
-    ActorRef askDemoActor = system.actorOf(Props.create(AskDemoArticleParser.class, cacheProbe.ref().path().toString(),
-            httpClientProbe.ref().path().toString(), articleParseActor.path().toString(), timeout));
+	private final TestProbe cacheProbe = new TestProbe(system);
+    
+	private final TestProbe httpClientProbe = new TestProbe(system);
+    
+	private final ActorRef articleParseActor = system.actorOf(Props.create(ParsingActor.class));
 
-    TestProbe cacheProbe = new TestProbe(system);
+	private final ActorRef askDemoActor = system.actorOf(
+            Props.create(AskDemoArticleParser.class,
+                    cacheProbe.ref().path().toString(),
+                    httpClientProbe.ref().path().toString(),
+                    articleParseActor.path().toString(),
+                    timeout)
+    );
 
-    TestProbe httpClientProbe = new TestProbe(system);
-
-    ActorSystem system = ActorSystem.create("testSystem");
-
-    Timeout timeout = Timeout.longToTimeout(10000);
 
     @Test
     public void itShouldParseArticleTest() throws Exception {
@@ -39,7 +48,7 @@ public class AskTest {
         httpClientProbe.reply(new HttpResponse(Articles.article1));
 
         String result = (String) Await.result(f, timeout.duration());
-        assert (result.contains("I’ve been writing a lot in emacs lately"));
-        assert (!result.contains("<body>"));
+        assert(result.contains("I’ve been writing a lot in emacs lately"));
+        assert(!result.contains("<body>"));
     }
 }

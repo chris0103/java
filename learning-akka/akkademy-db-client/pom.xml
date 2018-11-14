@@ -7,16 +7,6 @@
   
   <dependencies>
     <dependency>
-	  <groupId>com.typesafe.akka</groupId>
-	  <artifactId>akka-actor_2.11</artifactId>
-	  <version>2.3.6</version>
-    </dependency>
-    <dependency>
-	  <groupId>com.typesafe.akka</groupId>
-	  <artifactId>akka-remote_2.11</artifactId>
-	  <version>2.3.6</version>
-    </dependency>    
-    <dependency>
 	  <groupId>org.scala-lang.modules</groupId>
 	  <artifactId>scala-java8-compat_2.11</artifactId>
 	  <version>0.7.0</version>
@@ -55,16 +45,6 @@
         <configuration>
           <source>1.8</source>
 		  <target>1.8</target>
-        </configuration>
-      </plugin>   
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <excludes>
-            <exclude>application.conf</exclude>
-          </excludes>
         </configuration>
       </plugin>
     </plugins>
