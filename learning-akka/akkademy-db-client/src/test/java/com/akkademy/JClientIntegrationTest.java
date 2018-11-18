@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class JClientIntegrationTest {
 
-    JClient client = new JClient("127.0.0.1:2552");
+    private final JClient client = new JClient("127.0.0.1:2552");
 
     @Test
     public void itShouldSetRecord() throws Exception {
