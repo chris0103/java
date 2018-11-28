@@ -19,7 +19,7 @@ import scala.concurrent.Future;
 
 public class AskTest {
 	
-	private final ActorSystem system = ActorSystem.create("testSystem");
+	private final ActorSystem system = ActorSystem.create();
     
 	private final Timeout timeout = new Timeout(10000, TimeUnit.MILLISECONDS);
 
@@ -40,7 +40,7 @@ public class AskTest {
 
     @Test
     public void itShouldParseArticleTest() throws Exception {
-        Future f = ask(askDemoActor, new ParseArticle(("http://www.google.com")), timeout);
+        Future<Object> f = ask(askDemoActor, new ParseArticle(("http://www.google.com")), timeout);
         cacheProbe.expectMsgClass(GetRequest.class);
         cacheProbe.reply(new Status.Failure(new Exception("no cache")));
 

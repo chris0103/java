@@ -14,6 +14,7 @@ import akka.actor.ActorSelection;
 import akka.japi.pf.ReceiveBuilder;
 import akka.util.Timeout;
 import scala.PartialFunction;
+import scala.runtime.BoxedUnit;
 
 public class AskDemoArticleParser extends AbstractActor {
 
@@ -38,10 +39,11 @@ public class AskDemoArticleParser extends AbstractActor {
      * - 3 Extra actors
      * It's a bit simpler than the tell example.
      */
-    public PartialFunction receive() {
+    @Override
+	public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder.match(ParseArticle.class, msg -> {
-            final CompletionStage cacheResult = toJava(ask(cacheActor, new GetRequest(msg.url), timeout));
-            final CompletionStage result = cacheResult.handle((x, t) -> {
+            final CompletionStage<Object> cacheResult = toJava(ask(cacheActor, new GetRequest(msg.url), timeout));
+            final CompletionStage<Object> result = cacheResult.handle((x, t) -> {
                 return (x != null) ? CompletableFuture.completedFuture(x)
                         : toJava(ask(httpClientActor, msg.url, timeout)).thenCompose(rawArticle -> toJava(
                                 ask(artcileParseActor, new ParseHtmlArticle(msg.url, ((HttpResponse) rawArticle).body), timeout)));
@@ -58,7 +60,7 @@ public class AskDemoArticleParser extends AbstractActor {
                         senderRef.tell(x, self());
                     }
                 } else if (x == null) {
-                    senderRef.tell(new akka.actor.Status.Failure((Throwable) t), self());
+                    senderRef.tell(new akka.actor.Status.Failure(t), self());
                 }
                 return null;
             });
