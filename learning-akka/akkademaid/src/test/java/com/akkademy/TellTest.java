@@ -35,7 +35,7 @@ public class TellTest {
 
     @Test
     public void itShouldParseArticleTest() throws Exception{
-        Future f = ask(tellDemoActor, new ParseArticle(("http://www.google.com")), timeout);
+        Future<?> f = ask(tellDemoActor, new ParseArticle(("http://www.google.com")), timeout);
         cacheProbe.expectMsgClass(GetRequest.class);
         cacheProbe.reply(new Status.Failure(new Exception("no cache")));
 

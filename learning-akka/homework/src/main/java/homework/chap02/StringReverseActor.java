@@ -10,7 +10,7 @@ public class StringReverseActor extends AbstractActor {
 
 	@Override
 	public PartialFunction<Object, BoxedUnit> receive() {
-		return ReceiveBuilder.match(String.class, str -> reverse(str))
+		return ReceiveBuilder.match(String.class, str -> sender().tell(reverse(str), self()))
 				.matchAny(x -> sender().tell(new Status.Failure(new Exception("unknown message")), self())).build();
 	}
 

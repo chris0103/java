@@ -40,7 +40,7 @@ public class AskTest {
 
     @Test
     public void itShouldParseArticleTest() throws Exception {
-        Future<Object> f = ask(askDemoActor, new ParseArticle(("http://www.google.com")), timeout);
+        Future<?> f = ask(askDemoActor, new ParseArticle(("http://www.google.com")), timeout);
         cacheProbe.expectMsgClass(GetRequest.class);
         cacheProbe.reply(new Status.Failure(new Exception("no cache")));
 
