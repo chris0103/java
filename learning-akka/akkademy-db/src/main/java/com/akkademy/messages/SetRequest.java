@@ -13,16 +13,16 @@ public class SetRequest implements Serializable {
 		this.value = value;
 	}
 
+	@Override
+	public String toString() {
+		return "Set{" + "key='" + key + '\'' + ", value=" + value + '}';
+	}
+
 	public String getKey() {
 		return key;
 	}
 
 	public Object getValue() {
 		return value;
-	}
-
-	@Override
-	public String toString() {
-		return "Set{" + "key='" + key + '\'' + ", value=" + value + '}';
 	}
 }
