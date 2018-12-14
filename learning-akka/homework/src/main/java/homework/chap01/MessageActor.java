@@ -8,15 +8,15 @@ import scala.runtime.BoxedUnit;
 
 public class MessageActor extends AbstractActor {
 
-	private String message;
+    private String message;
 
-	@Override
-	public PartialFunction<Object, BoxedUnit> receive() {
-		return ReceiveBuilder.match(String.class, str -> message = str)
-				.matchAny(x -> sender().tell(new Status.Failure(new Exception("unknown message")), self())).build();
-	}
-	
-	public String getMessage() {
-		return message;
-	}
+    @Override
+    public PartialFunction<Object, BoxedUnit> receive() {
+        return ReceiveBuilder.match(String.class, str -> message = str)
+                .matchAny(x -> sender().tell(new Status.Failure(new Exception("unknown message")), self())).build();
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
