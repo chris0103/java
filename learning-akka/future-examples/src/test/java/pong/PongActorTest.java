@@ -83,13 +83,15 @@ public class PongActorTest {
     @Test
     public void shouldRecoverOnErrorAsync() throws Exception {
         CompletionStage<String> cf = askPong("cause error")
-                .handle((pong, ex) -> ex == null ? CompletableFuture.completedFuture(pong) : askPong("Ping")).thenCompose(x -> x);
+                .handle((pong, ex) -> ex == null ? CompletableFuture.completedFuture(pong) : askPong("Ping"))
+                .thenCompose(x -> x);
         assertEquals("Pong", get(cf));
     }
 
     @Test
     public void shouldChainTogetherMultipleOperations() throws Exception {
-        CompletionStage<String> cf = askPong("Ping").thenCompose(x -> askPong("Ping" + x)).handle((x, t) -> t != null ? "default" : x);
+        CompletionStage<String> cf = askPong("Ping").thenCompose(x -> askPong("Ping" + x))
+                .handle((x, t) -> t != null ? "default" : x);
         assertEquals("default", get(cf));
     }
 
@@ -110,7 +112,7 @@ public class PongActorTest {
         Thread.sleep(100);
     }
 
-    public CompletionStage<String> askPong(String message) {
+    private CompletionStage<String> askPong(String message) {
         Future<?> sFuture = ask(actorRef, message, 1000);
 
         @SuppressWarnings("unchecked")
@@ -119,7 +121,7 @@ public class PongActorTest {
         return cs;
     }
 
-    public Object get(CompletionStage<?> cs) throws Exception {
+    private Object get(CompletionStage<?> cs) throws Exception {
         @SuppressWarnings("unchecked")
         Object result = ((CompletableFuture<String>) cs).get(1000, TimeUnit.MILLISECONDS);
 
