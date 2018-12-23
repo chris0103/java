@@ -11,7 +11,7 @@ public class JClientIntegrationTest {
     @Test
     public void itShouldSetRecord() throws Exception {
         client.set("123", 123);
-        Integer result = (Integer) ((CompletableFuture<?>) client.get("123")).get();
+        Integer result = (Integer) ((CompletableFuture<Object>) client.get("123")).get();
         assert (result == 123);
     }
 }
