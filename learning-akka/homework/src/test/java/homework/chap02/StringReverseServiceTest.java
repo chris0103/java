@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class StringReverseStringTest {
+public class StringReverseServiceTest {
 
     private StringReverseService service = new StringReverseService();
 
