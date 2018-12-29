@@ -2,6 +2,13 @@ package homework.chap02;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 
 public class StringReverseServiceTest {
@@ -14,9 +21,29 @@ public class StringReverseServiceTest {
         assertEquals("olleh", ret);
     }
 
+    @Test
+    public void testStringSequence() throws Exception {
+        List<String> strs = Arrays.asList("Apple", "Banana", "Citrus");
+        Map<String, String> results = new HashMap<String, String>() {
+            {
+                put("Apple", "elppA");
+                put("Banana", "ananaB");
+                put("Citrus", "surtiC");
+            }
+        };
+        List<CompletableFuture<String>> listOfFuture = strs.stream().map(service::reverseString).collect(Collectors.toList());
+        CompletableFuture<List<String>> futureOfList = sequence(listOfFuture);
+        futureOfList.thenAccept(str -> assertEquals(results.get(str), str));
+    }
+
     @Test(expected = Exception.class)
     public void testUnknownType() throws Exception {
         service.reverseString(new Object()).get();
+    }
+
+    private <T> CompletableFuture<List<T>> sequence(List<CompletableFuture<T>> futures) {
+        CompletableFuture<Void> allDoneFuture = CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+        return allDoneFuture.thenApply(v -> futures.stream().map(future -> future.join()).collect(Collectors.<T> toList()));
     }
 
 }
