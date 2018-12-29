@@ -13,6 +13,8 @@ import org.junit.Test;
 
 public class StringReverseServiceTest {
 
+	private static String errorMessage = "unknown message";
+	
     private StringReverseService service = new StringReverseService();
 
     @Test
@@ -36,9 +38,10 @@ public class StringReverseServiceTest {
         futureOfList.thenAccept(str -> assertEquals(results.get(str), str));
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testUnknownType() throws Exception {
-        service.reverseString(new Object()).get();
+        String ret = service.reverseString(new Object()).get();
+        assertEquals(errorMessage, ret);
     }
 
     private <T> CompletableFuture<List<T>> sequence(List<CompletableFuture<T>> futures) {

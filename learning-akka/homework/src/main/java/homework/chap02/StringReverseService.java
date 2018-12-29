@@ -26,7 +26,7 @@ public class StringReverseService {
         Future<?> future = ask(actor, msg, 2000);
 
         @SuppressWarnings("unchecked")
-        CompletionStage<String> completionStage = (CompletionStage<String>) toJava(future);
+		CompletionStage<String> completionStage = ((CompletionStage<String>) toJava(future)).handle((x, t) -> t != null ? t.getMessage() : x);
 
         CompletableFuture<String> completableFuture = completionStage.toCompletableFuture();
         return completableFuture;
