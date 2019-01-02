@@ -13,8 +13,8 @@ import org.junit.Test;
 
 public class StringReverseServiceTest {
 
-	private static String errorMessage = "unknown message";
-	
+    private static String errorMessage = "unknown message";
+
     private StringReverseService service = new StringReverseService();
 
     @Test
@@ -35,7 +35,12 @@ public class StringReverseServiceTest {
         };
         List<CompletableFuture<String>> listOfFuture = strs.stream().map(service::reverseString).collect(Collectors.toList());
         CompletableFuture<List<String>> futureOfList = sequence(listOfFuture);
-        futureOfList.thenAccept(str -> assertEquals(results.get(str), str));
+        futureOfList.thenAccept(future -> {
+            future.stream().forEach(str -> {
+                System.out.println(str + " => " + results.get(str));
+                assertEquals(results.get(str), str);
+            });
+        });
     }
 
     @Test
