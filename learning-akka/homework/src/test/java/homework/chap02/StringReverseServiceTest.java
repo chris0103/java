@@ -3,9 +3,7 @@ package homework.chap02;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -26,30 +24,10 @@ public class StringReverseServiceTest {
     @Test
     public void testStringSequence() throws Exception {
         List<String> strs = Arrays.asList("Apple", "Banana", "Citrus");
-        Map<String, String> results = new HashMap<String, String>() {
-            {
-                put("Apple", "elppA");
-                put("Banana", "ananaB");
-                put("Citrus", "surtiC");
-            }
-        };
+        List<String> results = Arrays.asList("elppA", "ananaB", "surtiC");
         List<CompletableFuture<String>> listOfFuture = strs.stream().map(service::reverseString).collect(Collectors.toList());
         CompletableFuture<List<String>> futureOfList = sequence(listOfFuture);
-        futureOfList.thenAccept(future -> {
-            future.stream().forEach(str -> {
-                System.out.println(str + " => " + results.get(str));
-                assertEquals(results.get(str), str);
-            });
-        })
-        /*
-         * .handle((x, t) -> {
-         * if (t != null) {
-         * t.printStackTrace();
-         * }
-         * return t;
-         * })
-         */
-        ;
+        assertEquals(results, futureOfList.get());
     }
 
     @Test
