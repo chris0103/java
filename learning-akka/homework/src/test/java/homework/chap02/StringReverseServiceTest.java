@@ -40,7 +40,16 @@ public class StringReverseServiceTest {
                 System.out.println(str + " => " + results.get(str));
                 assertEquals(results.get(str), str);
             });
-        });
+        })
+        /*
+         * .handle((x, t) -> {
+         * if (t != null) {
+         * t.printStackTrace();
+         * }
+         * return t;
+         * })
+         */
+        ;
     }
 
     @Test
