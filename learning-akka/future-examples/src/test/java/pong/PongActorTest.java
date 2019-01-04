@@ -23,6 +23,62 @@ public class PongActorTest {
     ActorRef actorRef = system.actorOf(Props.create(JavaPongActor.class));
 
     @Test
+    public void shouldChainTogetherMultipleOperations() throws Exception {
+        CompletionStage<String> cf = askPong("Ping").thenCompose(x -> askPong("Ping" + x)).handle((x, t) -> t != null ? "default" : x);
+        assertEquals("default", get(cf));
+    }
+
+    @Test
+    public void shouldCombineFutures() throws Exception {
+        CompletionStage<String> cf = askPong("Ping").thenCombine(askPong("Ping"), (a, b) -> a + b);
+        assertEquals("PongPong", get(cf));
+    }
+
+    @Test
+    public void shouldEffectOnError() throws Exception {
+        CompletionStage<String> cs = askPong("cause error").handle((x, t) -> {
+            if (t != null) {
+                System.out.println("Error: " + t);
+            }
+            return null;
+        });
+        assertEquals(null, get(cs));
+    }
+
+    @Test
+    public void shouldPrintErrorToConsole() throws Exception {
+        askPong("cause error").handle((x, t) -> {
+            if (t != null) {
+                System.out.println("Error: " + t);
+            }
+            return null;
+        });
+        Thread.sleep(100);
+    }
+
+    @Test
+    public void shouldPrintToConsole() throws Exception {
+        askPong("Ping").thenAccept(x -> System.out.println("replied with: " + x));
+        Thread.sleep(100);
+        // no assertion - just prints to console. Try to complete a CompletableFuture instead.
+    }
+
+    @Test
+    public void shouldRecoverOnError() throws Exception {
+        CompletionStage<String> cs = askPong("cause error").exceptionally(t -> {
+            return "default";
+        });
+        assertEquals("default", get(cs));
+    }
+
+    @Test
+    public void shouldRecoverOnErrorAsync() throws Exception {
+        CompletionStage<String> cf = askPong("cause error")
+                .handle((pong, ex) -> ex == null ? CompletableFuture.completedFuture(pong) : askPong("Ping")).thenCompose(x -> x);
+        assertEquals("Pong", get(cf));
+    }
+
+    @Test
     public void shouldReplyToPingWithPong() throws Exception {
         final Future<?> sFuture = ask(actorRef, "Ping", 1000);
 
@@ -43,13 +99,6 @@ public class PongActorTest {
     }
 
     @Test
-    public void shouldPrintToConsole() throws Exception {
-        askPong("Ping").thenAccept(x -> System.out.println("replied with: " + x));
-        Thread.sleep(100);
-        // no assertion - just prints to console. Try to complete a CompletableFuture instead.
-    }
-
-    @Test
     public void shouldTransform() throws Exception {
         char result = (char) get(askPong("Ping").thenApply(x -> x.charAt(0)));
         assertEquals('P', result);
@@ -58,58 +107,7 @@ public class PongActorTest {
     @Test
     public void shouldTransformAsync() throws Exception {
         CompletionStage<String> cs = askPong("Ping").thenCompose(x -> askPong("Ping"));
-        assertEquals(get(cs), "Pong");
-    }
-
-    @Test
-    public void shouldEffectOnError() throws Exception {
-        CompletionStage<String> cs = askPong("cause error").handle((x, t) -> {
-            if (t != null) {
-                System.out.println("Error: " + t);
-            }
-            return null;
-        });
-        assertEquals(null, get(cs));
-    }
-
-    @Test
-    public void shouldRecoverOnError() throws Exception {
-        CompletionStage<String> cs = askPong("cause error").exceptionally(t -> {
-            return "default";
-        });
-        assertEquals("default", get(cs));
-    }
-
-    @Test
-    public void shouldRecoverOnErrorAsync() throws Exception {
-        CompletionStage<String> cf = askPong("cause error")
-                .handle((pong, ex) -> ex == null ? CompletableFuture.completedFuture(pong) : askPong("Ping"))
-                .thenCompose(x -> x);
-        assertEquals("Pong", get(cf));
-    }
-
-    @Test
-    public void shouldChainTogetherMultipleOperations() throws Exception {
-        CompletionStage<String> cf = askPong("Ping").thenCompose(x -> askPong("Ping" + x))
-                .handle((x, t) -> t != null ? "default" : x);
-        assertEquals("default", get(cf));
-    }
-
-    @Test
-    public void shouldCombineFutures() throws Exception {
-        CompletionStage<String> cf = askPong("Ping").thenCombine(askPong("Ping"), (a, b) -> a + b);
-        assertEquals("PongPong", get(cf));
-    }
-
-    @Test
-    public void shouldPrintErrorToConsole() throws Exception {
-        askPong("cause error").handle((x, t) -> {
-            if (t != null) {
-                System.out.println("Error: " + t);
-            }
-            return null;
-        });
-        Thread.sleep(100);
+        assertEquals("Pong", get(cs));
     }
 
     private CompletionStage<String> askPong(String message) {
