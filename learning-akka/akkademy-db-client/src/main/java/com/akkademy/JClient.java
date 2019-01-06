@@ -8,8 +8,10 @@ import java.util.concurrent.CompletionStage;
 import com.akkademy.messages.GetRequest;
 import com.akkademy.messages.SetRequest;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
+import akka.actor.PoisonPill;
 
 public class JClient {
 
@@ -21,14 +23,15 @@ public class JClient {
         remoteDb = system.actorSelection("akka.tcp://akkademy@" + remoteAddress + "/user/akkademy-db");
     }
 
-    public void disconnect() {
-    }
-
     public CompletionStage<Object> get(String key) {
         return toJava(ask(remoteDb, new GetRequest(key), 2000));
     }
 
     public CompletionStage<Object> set(String key, Object value) {
         return toJava(ask(remoteDb, new SetRequest(key, value), 2000));
+    }
+    
+    public void close() {
+    	remoteDb.tell(PoisonPill.getInstance(), ActorRef.noSender());
     }
 }
