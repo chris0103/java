@@ -35,8 +35,10 @@ public class AskDemoArticleParser extends AbstractActor {
 
     /**
      * Note there are 3 asks so this potentially creates 6 extra objects:
-     * - 3 Promises
-     * - 3 Extra actors
+     * <ol>
+     * <li>- 3 Promises</li>
+     * <li>- 3 Extra actors</li>
+     * </ol>
      * It's a bit simpler than the tell example.
      */
     @Override
@@ -53,9 +55,9 @@ public class AskDemoArticleParser extends AbstractActor {
             result.handle((x, t) -> {
                 if (x != null) {
                     if (x instanceof ArticleBody) {
-                        String body = ((ArticleBody) x).body; // parsed article
-                        cacheActor.tell(body, self()); // cache it
-                        senderRef.tell(body, self()); // reply
+                        String body = ((ArticleBody) x).body; 	// parsed article
+                        cacheActor.tell(body, self()); 			// cache it
+                        senderRef.tell(body, self()); 			// reply
                     } else if (x instanceof String) {
                         senderRef.tell(x, self());
                     }

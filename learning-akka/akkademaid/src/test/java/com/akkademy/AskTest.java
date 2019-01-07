@@ -29,12 +29,9 @@ public class AskTest {
     
 	private final ActorRef articleParseActor = system.actorOf(Props.create(ParsingActor.class));
 
-	private final ActorRef askDemoActor = system.actorOf(
-            Props.create(AskDemoArticleParser.class,
-                    cacheProbe.ref().path().toString(),
-                    httpClientProbe.ref().path().toString(),
-                    articleParseActor.path().toString(),
-                    timeout)
+	private final ActorRef askDemoActor = system.actorOf(Props.create(
+			AskDemoArticleParser.class, cacheProbe.ref().path().toString(), 
+			httpClientProbe.ref().path().toString(), articleParseActor.path().toString(), timeout)
     );
 
 
