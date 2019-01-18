@@ -4,27 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.akkademy.messages.KeyNotFoundException;
 
 public class JClientIntegrationTest {
 
-    private final JClient client = new JClient("127.0.0.1:2552");
+    private static final JClient client = new JClient("127.0.0.1:2552");
 
-    @Test
-    public void itShouldSetRecord() throws Exception {
-        client.set("123", 123);
-        Integer result = (Integer) ((CompletableFuture<Object>) client.get("123")).get();
-        assertEquals(Integer.valueOf(123), result);
-        client.close();
-    }
-
-    private String constructErrorMessage(KeyNotFoundException t) {
-        return t.getClass() + "[" + t.getKey() + "]";
-    }
-    
     @Test
     public void itShouldFailedOnMissingRecord() throws Exception {
         client.set("123", 123);
@@ -35,6 +22,16 @@ public class JClientIntegrationTest {
             return t.getMessage();
         });
         assertEquals(constructErrorMessage(new KeyNotFoundException("321")), future.get());
-        client.close();
+    }
+
+    @Test
+    public void itShouldSetRecord() throws Exception {
+        client.set("123", 123);
+        Integer result = (Integer) ((CompletableFuture<Object>) client.get("123")).get();
+        assertEquals(Integer.valueOf(123), result);
+    }
+
+    private String constructErrorMessage(KeyNotFoundException t) {
+        return t.getClass() + "[" + t.getKey() + "]";
     }
 }
