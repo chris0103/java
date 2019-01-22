@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import akka.actor.ActorRef;
@@ -32,9 +33,15 @@ public class DeliveryActorTest {
         CompletionStage<String> cs = askDelivery("Hello");
         assertEquals("olleH", get(cs));
     }
+    
+    @Test
+    public void testUnknownMessage() throws Exception {
+        CompletionStage<String> cs = askDelivery(new Object()).exceptionally(t -> t.getMessage());
+        assertEquals("unknown message", get(cs));
+    }
 
-    private CompletionStage<String> askDelivery(String message) {
-        Future<?> sFuture = ask(actorRef, message, 1000);
+    private CompletionStage<String> askDelivery(Object message) {
+        Future<?> sFuture = ask(actorRef, message, 10000);
 
         @SuppressWarnings("unchecked")
         final CompletionStage<String> cs = (CompletionStage<String>) toJava(sFuture);
