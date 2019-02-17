@@ -21,9 +21,9 @@ public class DeliveryActor extends AbstractActor {
     private StringReverseService service = new StringReverseService();
 
     public DeliveryActor() {
+    	final ActorRef sender = sender();
         receive(ReceiveBuilder.match(String.class, str -> str.equals("Ping"), str -> {
         	log.info("Received {}.", str);
-            final ActorRef sender = sender();
             toJava(ask(pongActor, str, 2000)).thenAccept(ret -> sender.tell(ret, self()));
         }).match(String.class, str -> {
         	log.info("Received {}.", str);
