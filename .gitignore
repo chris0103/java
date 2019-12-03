@@ -218,8 +218,3 @@ pip-log.txt
 
 all-in-all/src/main/java/org/chris/tools/homebred
 /target/
-/learning-akka/akkademy-db/target/
-learning-akka/akkademy-db/target/maven-archiver/pom.properties
-*.jar
-learning-akka/future-examples/target/akka-0.0.1-SNAPSHOT.jar
-learning-akka/future-examples/target/maven-archiver/pom.properties
