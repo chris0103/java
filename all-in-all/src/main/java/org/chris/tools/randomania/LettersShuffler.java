@@ -20,7 +20,17 @@ public class LettersShuffler {
 		}
 	}
 	
-	public static void main(String[] args) {
-		new LettersShuffler().shuffleLetters('A', 'I');
+	public void shuffleNumbers(int start, int end) {
+		List<Integer> numbers = new LinkedList<>();
+		if (start > end) {
+			return;
+		}
+		for (int letter = start; letter <= end; letter++) {
+			numbers.add(letter);
+		}
+		Collections.shuffle(numbers);
+		for (int c : numbers) {
+			System.out.println(c);
+		}
 	}
 }
