@@ -7,6 +7,5 @@
   </head>
   <body>
     <h1>Welcome to Template</h1>
-    <a href="<c:url value="/spittles" />">Template</a>
   </body>
 </html>
