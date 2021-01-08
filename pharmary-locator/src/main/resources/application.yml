@@ -1,0 +1,19 @@
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+
+spring:
+  h2:
+    console:
+      enabled: true	# visit http://localhost:8080/h2-console/ to access the console and use jdbc:h2:mem:testdb as JDBC URL
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
