@@ -8,15 +8,19 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.chris.tool.pharmarylocator.entity.QueryResult;
 import org.chris.tool.pharmarylocator.entity.UserQueries;
 import org.chris.tool.pharmarylocator.repository.UserQueryuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
@@ -25,7 +29,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class PharmLocatorController {
+    
+    private static final String ENDPOINT = "https://restapi.amap.com/v3";
+    
+    private static final String KEY = "fb6e185fdaac2b250b24be031f6859d5";
+    
+    private static final String POI = "药房";
+    
+    private static final String POI_TYPE = "090601";
+    
+    private static final String RADIUS = "5000";
     
     @Autowired
     private UserQueryuRepository repository;
@@ -33,26 +48,28 @@ public class PharmLocatorController {
     private Random random = new Random();
 
     @RequestMapping(value="/search", method = GET)
-    public String search() {
-        String user = "dummy";
+    public List<QueryResult> search(@RequestParam String user, @RequestParam int type, @RequestParam String keyword) {
         
         // get location for input
-        String json = getResponse("https://restapi.amap.com/v3/geocode/geo?key=fb6e185fdaac2b250b24be031f6859d5&address=上海市松江区人民南路松汇路&city=8880&batch=true");
+        String requestUrl = ENDPOINT + "/geocode/geo?key=" + KEY + "&address=" + keyword;
+        String json = getResponse(requestUrl);
         JsonParser parser = new JsonParser();
         JsonElement geoElement = parser.parse(json);
         String location = "";
         if (geoElement.isJsonObject()) {
             JsonArray geoCodes = geoElement.getAsJsonObject().getAsJsonArray("geocodes");
-            if (geoCodes.size() > 0) {
+            if (geoCodes != null && geoCodes.size() > 0) {
                 JsonElement geoCode = geoCodes.get(0);
                 location = geoCode.getAsJsonObject().get("location").getAsString();
             }
         }
-        System.out.println(location);
         
+        // search pharmaries around for given location
         Map<String, Integer> userQueryStats = new HashMap<>();  // cache stats for current search
         Map<String, String> pharmNames = new HashMap<>();
-        json = getResponse("https://restapi.amap.com/v3/place/around?key=fb6e185fdaac2b250b24be031f6859d5&location=121.230274,31.004532&keywords=药房&types=090601&radius=5000");
+        List<QueryResult> queryResults = new ArrayList<>();
+        requestUrl = ENDPOINT + "/place/around?key=" + KEY + "&location=" + location + "&keywords=" + POI + "&types=" + POI_TYPE + "&radius=" + RADIUS;
+        json = getResponse(requestUrl);
         JsonElement pharmariesElement = parser.parse(json);
         if (pharmariesElement.isJsonObject()) {
             JsonArray pois = pharmariesElement.getAsJsonObject().getAsJsonArray("pois");
@@ -68,13 +85,11 @@ public class PharmLocatorController {
                     userQueryStats.put(statKey, count + 1);     // thread-safe caveat here, but fine for statistic purpose
                 }
                 pharmNames.put(poiId, pharmName);
+                queryResults.add(new QueryResult(poiId, pharmName));
             }
         }
-        
-        for (String key : userQueryStats.keySet()) {
-            System.out.println(key + ": " + userQueryStats.get(key));
-        }
       
+        // store statictics into H2 database
         for (String key : userQueryStats.keySet()) {
             String[] userPoiId = key.split("-");
             String username = userPoiId[0];
@@ -84,16 +99,13 @@ public class PharmLocatorController {
                 repository.save(new UserQueries(username, poiId, pharmNames.get(poiId), userQueryStats.get(key)));
             } else {
                 UserQueries userQuery = userQueries.get(0);
-                userQuery.setQueryCount(userQuery.getQueryCount() + userQueryStats.get(key) + random.nextInt(5));
+                userQuery.setQueryCount(userQuery.getQueryCount() + userQueryStats.get(key) + random.nextInt(20));
                 repository.save(userQuery);
             }
         }
-        Iterable<UserQueries> queries = repository.findAll();
-        for (UserQueries query : queries) {
-            System.out.println(query);
-        }
-        
-        return "User Search Logged.";
+
+        listQueries();
+        return queryResults;
     }
     
     @RequestMapping(value="/stat", method = GET)
@@ -105,7 +117,14 @@ public class PharmLocatorController {
         return queries;
     }
     
-    public String getResponse(String serverUrl) {
+    private void listQueries() {
+        Iterable<UserQueries> queries = repository.findAll();
+        for (UserQueries query : queries) {
+            System.out.println(query);
+        }
+    }
+    
+    private String getResponse(String serverUrl) {
         StringBuffer result = new StringBuffer();
         try {
             URL url = new URL(serverUrl);
