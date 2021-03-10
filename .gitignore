@@ -216,5 +216,7 @@ pip-log.txt
 .mr.developer.cfg
 *.xlsx
 
+.idea/
+
 all-in-all/src/main/java/org/chris/tools/homebred
 target/
