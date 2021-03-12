@@ -217,6 +217,7 @@ pip-log.txt
 *.xlsx
 
 .idea/
+*iml
 
 all-in-all/src/main/java/org/chris/tools/homebred
 target/
