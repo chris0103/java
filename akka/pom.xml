@@ -9,7 +9,7 @@
 
   <properties>
     <jetty.version>9.4.41.v20210516</jetty.version>
-    <jackson.version>2.12.1</jackson.version>
+    <jackson.version>2.12.7.1</jackson.version>
     <rxjava.version>2.0.1</rxjava.version>
   </properties>
 
