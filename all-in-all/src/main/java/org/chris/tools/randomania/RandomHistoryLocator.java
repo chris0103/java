@@ -12,7 +12,7 @@ public class RandomHistoryLocator {
 	private static Random random = new Random();
 	private static SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 	
-	private long timeScope = (long) (1000 * 86400 * 365.25 * 10000);	// 10000 years
+	private long timeScope = (long) (1000 * 86400 * 365.25 * 6000);	// 6000 years
 	
 	public void randomLocationAndTime() {
 		LatLng location = LatLng.random();
@@ -20,6 +20,7 @@ public class RandomHistoryLocator {
 		Calendar history = new GregorianCalendar();
 		history.setTimeInMillis(historyTimestamp);
 		String dateStr = format.format(history.getTime());
+		System.out.println("Time: " + dateStr + ", location: (" + location.getLongitude() + ", " + location.getLatitude() + ")");
 		System.out.println("Time: " + dateStr + ", location: (" + decimalToDMS(location.getLongitude(), true) + ", " + decimalToDMS(location.getLatitude(), false) + ")");
 	}
 	
