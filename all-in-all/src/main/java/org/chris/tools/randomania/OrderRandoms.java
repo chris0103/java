@@ -8,17 +8,8 @@ import java.util.Set;
 
 public class OrderRandoms {
 
-	public void generateTaskOrder() {
-		Set<String> taskSet = new HashSet<String>();
-
-		taskSet.add("The Stream Zoo");
-		taskSet.add("Spring Webmvc");
-		taskSet.add("");
-		taskSet.add("风色幻想");
-		taskSet.add("Movies");
-		taskSet.add("TV Series");
-		// taskSet.add("");
-		
+	private void generateOrder(Set<String> taskSet) {
+	
 		List<String> taskList = new ArrayList<String>(taskSet);
 		Collections.shuffle(taskList);
 		
@@ -40,47 +31,42 @@ public class OrderRandoms {
 		}
 	}
 	
-	public void generateVideoOrder() {
-		Set<String> videoSet = new HashSet<String>();
-		
-		// in process video set
-		videoSet.add("Gossip Girl");
-		videoSet.add("东周列国");
-		videoSet.add("风林火山");
-		videoSet.add("名侦探柯南");
-		videoSet.add("耶鲁大学开放课程-哲学：死亡");
-		
-		 
-		/*
-		videoSet.add("百战经典");
-		videoSet.add("二胎时代");
-		 */
-		// videoSet.add("");
-		 
-		List<String> videoList = new ArrayList<String>(videoSet);
-		Collections.shuffle(videoList);
-		
-		Set<Integer> taskVideoSet = new HashSet<Integer>();
-		for (int i = 0; i < videoSet.size(); i++) {
-			taskVideoSet.add(i);
-		}
-		List<Integer> videoOrderList = new ArrayList<Integer>(taskVideoSet);
-		Collections.shuffle(videoOrderList);
-		
-		// original video order
-		for (String video : videoList) {
-			System.out.println(video);
-		}
-		System.out.println();
-		// shuffled video order
-		for (int video : videoOrderList) {
-			System.out.println((video + 1) + " - " + videoList.get(video));
-		}
+	public void generateDebtsOrder() {
+		Set<String> taskSet = new HashSet<String>();
+
+		taskSet.add("数据备份");
+		taskSet.add("手机容量清理");
+		taskSet.add("新药涉及药物整理");
+		taskSet.add("B站待学习视频下载");
+		taskSet.add("残余Rocket Items");
+		taskSet.add("修小黑屏幕");
+		taskSet.add("网易云耳机研究");
+		taskSet.add("Just My Socks研究 + MacOS使用");
+		taskSet.add("购物附加保障服务整理");
+		taskSet.add("ThinkPad升级/修理");
+		taskSet.add("游戏整理");
+		taskSet.add("程序整理，切换到IDEA");
+		taskSet.add("Download stash IT Videos整理");
+		taskSet.add("Download stash整理");
+		taskSet.add("电脑书籍整理");
+		taskSet.add("Rainlendar Tasks");
+		taskSet.add("Book scanner (12.5K)");
+		taskSet.add("电脑IT书籍整理");
+		taskSet.add("Move tools Classes from tools project to all-in-all project");
+		taskSet.add("English Translation");
+		taskSet.add("Deutsch");
+		taskSet.add("English Listening");
+		taskSet.add("Practice");
+		taskSet.add("Spider nets");
+		taskSet.add("Canon Research");
+		taskSet.add("整理各种读书资源");
+		// taskSet.add(""); 
+		generateOrder(taskSet);
 	}
+	
 	
 	public static void main(String[] args) {
 		OrderRandoms randoms = new OrderRandoms();
-		// randoms.generateTaskOrder();
-		randoms.generateVideoOrder();
+		randoms.generateDebtsOrder();
 	}
 }
