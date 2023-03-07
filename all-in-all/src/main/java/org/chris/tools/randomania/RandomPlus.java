@@ -16,18 +16,23 @@ public class RandomPlus {
                 itemsWithWeight.add(items.get(i));
             }
         }
-        for (String item : itemsWithWeight) {
-            System.out.println(item);
-        }
         return itemsWithWeight.get(random.nextInt(itemsWithWeight.size()));
+    }
+
+    public String randomWithWeight(int count) {
+        List<String> items = new ArrayList<>(count);
+        for (int i = 1; i <= count; i++) {
+            items.add(i + "");
+        }
+        return randomWithWeight(items);
     }
 
     public static void main(String[] args) {
         List<String> items = new ArrayList<>();
-        items.add("one");
-        items.add("two");
-        items.add("three");
-        String randomItem = new RandomPlus().randomWithWeight(items);
+        items.add("1");
+        items.add("2");
+        items.add("3");
+        String randomItem = new RandomPlus().randomWithWeight(10);
         System.out.println(randomItem);
     }
 }
