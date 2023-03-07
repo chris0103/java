@@ -21,9 +21,13 @@ public class Biblioholism {
 		for (String key : bills.keySet()) {
 			float cost = bills.get(key);
 			float odds = findOdds(cost, threshold);
-			if (odds < 0.1) {
-				System.out.println(key + " = " + cost + "\t Odds = " + decFormat.format(odds));
+			if (cost > 1000.0f) {
+				continue;
 			}
+			if (odds > 0.2) {
+				continue;
+			}
+			System.out.println(key + " = " + cost + "\t Odds = " + decFormat.format(odds));
 		}
 	}
 	
@@ -59,7 +63,7 @@ public class Biblioholism {
 	}
 	
 	public static void main(String[] args) {
-		float[] prices = new float[] {21.6f, 17.7f, 116.3f, 27.9f, 62.2f, 56.1f, 80.8f, 56.1f, 74.1f, 56.8f, 75.1f, 976.4f, 46.6f, 61.8f, 46.6f};
+		float[] prices = new float[] {184.3f, 24.8f, 55.0f, 100.0f, 925.8f, 67.3f, 46.1f, 49.0f, 35.0f, 45.0f, 68.0f, 79f, 56.0f, 35.0f, 68.0f, 45.0f};
 		new Biblioholism().buyBuyBuy(prices, 100);
 	}
 	

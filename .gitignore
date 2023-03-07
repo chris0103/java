@@ -341,3 +341,5 @@ dmypy.json
 #custom
 all-in-all/src/main/java/org/chris/tools/homebred
 target/
+lucene/indices
+lucene/texts
