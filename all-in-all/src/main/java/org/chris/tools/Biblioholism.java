@@ -63,8 +63,8 @@ public class Biblioholism {
 	}
 	
 	public static void main(String[] args) {
-		float[] prices = new float[] {184.3f, 24.8f, 55.0f, 100.0f, 925.8f, 67.3f, 46.1f, 49.0f, 35.0f, 45.0f, 68.0f, 79f, 56.0f, 35.0f, 68.0f, 45.0f};
-		new Biblioholism().buyBuyBuy(prices, 100);
+		float[] prices = new float[] {13f, 27f, 95f, 43f, 38f, 23f, 56f, 33f, 24f, 33f, 36f, };
+		new Biblioholism().buyBuyBuy(prices, 245);
 	}
 	
 }

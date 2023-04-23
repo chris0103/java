@@ -31,42 +31,30 @@ public class OrderRandoms {
 		}
 	}
 	
-	public void generateDebtsOrder() {
-		Set<String> taskSet = new HashSet<String>();
+	public void generateTasksOrder() {
+		Set<String> tasks = new HashSet<String>();
 
-		taskSet.add("数据备份");
-		taskSet.add("手机容量清理");
-		taskSet.add("新药涉及药物整理");
-		taskSet.add("B站待学习视频下载");
-		taskSet.add("残余Rocket Items");
-		taskSet.add("修小黑屏幕");
-		taskSet.add("网易云耳机研究");
-		taskSet.add("Just My Socks研究 + MacOS使用");
-		taskSet.add("购物附加保障服务整理");
-		taskSet.add("ThinkPad升级/修理");
-		taskSet.add("游戏整理");
-		taskSet.add("程序整理，切换到IDEA");
-		taskSet.add("Download stash IT Videos整理");
-		taskSet.add("Download stash整理");
-		taskSet.add("电脑书籍整理");
-		taskSet.add("Rainlendar Tasks");
-		taskSet.add("Book scanner (12.5K)");
-		taskSet.add("电脑IT书籍整理");
-		taskSet.add("Move tools Classes from tools project to all-in-all project");
-		taskSet.add("English Translation");
-		taskSet.add("Deutsch");
-		taskSet.add("English Listening");
-		taskSet.add("Practice");
-		taskSet.add("Spider nets");
-		taskSet.add("Canon Research");
-		taskSet.add("整理各种读书资源");
-		// taskSet.add(""); 
-		generateOrder(taskSet);
+        tasks.add("Computer Books scanner");
+        tasks.add("Move tools Classes from tools project to all-in-all project");
+        tasks.add("English Translation");
+        tasks.add("Deutsch");
+        tasks.add("English Listening");
+        tasks.add("Practice");
+        tasks.add("Spider nets");
+        tasks.add("Canon Research");
+        tasks.add("To Be Enhanced Movie");
+        tasks.add("手机容量清理");
+        tasks.add("新药涉及药物整理");
+        tasks.add("B站待学习视频下载");
+        tasks.add("游戏整理");
+        tasks.add("Book scanner (12.5K)");
+		// tasks.add(""); 
+		generateOrder(tasks);
 	}
 	
 	
 	public static void main(String[] args) {
 		OrderRandoms randoms = new OrderRandoms();
-		randoms.generateDebtsOrder();
+		randoms.generateTasksOrder();
 	}
 }
