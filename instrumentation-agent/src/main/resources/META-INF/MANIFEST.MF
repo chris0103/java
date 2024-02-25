@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Premain-Class: org.chris.study.instrumentation.MyFirstAgent
+Agent-Class: org.chris.study.instrumentation.MyFirstAgent
