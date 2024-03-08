@@ -1,4 +1,4 @@
-package org.chris.study.cookbook.io;
+package org.chris.study.io;
 
 import java.io.File;
 import java.io.FileInputStream;

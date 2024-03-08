@@ -1,11 +1,11 @@
-package org.chris.study.cookbook.collection;
+package org.chris.study.collections;
+
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 public class CollectionOperations {
 
