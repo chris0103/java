@@ -1,5 +1,6 @@
 package chap04.operators;
 
+// Test of unsigned right shift
 public class UnsignedRightShift {
 
     public static void main(String[] args) {

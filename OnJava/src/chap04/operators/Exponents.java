@@ -1,5 +1,6 @@
 package chap04.operators;
 
+// "e" means "10 to the power."
 public class Exponents {
 
     public static void main(String[] args) {

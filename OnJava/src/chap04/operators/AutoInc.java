@@ -1,5 +1,6 @@
 package chap04.operators;
 
+// The ++ and -- operators
 public class AutoInc {
 
     public static void main(String[] args) {

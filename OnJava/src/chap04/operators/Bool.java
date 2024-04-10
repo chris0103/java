@@ -2,6 +2,7 @@ package chap04.operators;
 
 import java.util.Random;
 
+// Relational and logical operators
 public class Bool {
 
     public static void main(String[] args) {

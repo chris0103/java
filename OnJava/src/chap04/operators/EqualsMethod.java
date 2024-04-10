@@ -14,6 +14,7 @@ class ValB {
     }
 }
 
+// Default equals() does not compare contents
 public class EqualsMethod {
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package chap04.operators;
 
 import java.util.Random;
 
+// The mathematical operators
 public class MathOps {
 
     public static void main(String[] args) {

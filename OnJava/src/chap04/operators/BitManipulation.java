@@ -2,6 +2,7 @@ package chap04.operators;
 
 import java.util.Random;
 
+// Using the bitwise operators
 public class BitManipulation {
 
     public static void main(String[] args) {

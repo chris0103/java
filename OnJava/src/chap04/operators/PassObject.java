@@ -4,6 +4,7 @@ class Letter {
     char c;
 }
 
+// Passing objects to methods might not be what you're used to
 public class PassObject {
     static void f(Letter y) {
         y.c = 'z';

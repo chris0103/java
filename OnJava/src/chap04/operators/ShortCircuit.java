@@ -1,5 +1,6 @@
 package chap04.operators;
 
+// Short-circuiting behavior with logical operators
 public class ShortCircuit {
 
     static boolean test1(int val) {
