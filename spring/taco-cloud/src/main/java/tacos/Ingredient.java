@@ -25,6 +25,6 @@ public class Ingredient {
     }
 
     public enum Type {
-        WARP, PROTEIN, VEGGIES, CHEESE, SAUCE
+        WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 }

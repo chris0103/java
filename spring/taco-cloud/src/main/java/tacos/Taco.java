@@ -7,6 +7,10 @@ public class Taco {
     private String name;
     private List<Ingredient> ingredients;
 
+    public Taco() {
+
+    }
+
     public Taco(String name, List<Ingredient> ingredients) {
         this.name = name;
         this.ingredients = ingredients;
