@@ -1,4 +1,4 @@
-package tacos;
+package tacos.web;
 
 
 import org.slf4j.Logger;
@@ -11,7 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import tacos.Ingredient;
 import tacos.Ingredient.Type;
+import tacos.Taco;
+import tacos.TacoOrder;
 
 @Controller
 @RequestMapping("/design")
