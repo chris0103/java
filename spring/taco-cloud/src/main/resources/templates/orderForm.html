@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/styles.css}" />
   </head>
 <body>
-  <form method="POST" th:action="@{/orders}" th:object="${tackOrder}">
+  <form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
     <h1>Order your taco creations</h1>
     <img th:src="@{/images/TacoCloud.png}"/>
 
@@ -53,7 +53,6 @@
     <br />
 
     <input type="submit"  value="Submit Order" />
-
   </form>
 </body>
 </html>
