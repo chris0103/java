@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Reading List
+server:
+  port: 8000
