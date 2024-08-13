@@ -27,7 +27,7 @@ class Table {
     static Bowl bowl2 = new Bowl(2);
 }
 
-class Cupboard {
+class   Cupboard {
     Bowl bowl3 = new Bowl(3);
     static Bowl bowl4 = new Bowl(4);
 
