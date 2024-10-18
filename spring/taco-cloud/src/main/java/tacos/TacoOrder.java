@@ -6,9 +6,12 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TacoOrder {
+
+    private Long id;
 
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
@@ -36,6 +39,9 @@ public class TacoOrder {
 
     private List<Taco> tacos = new ArrayList<>();
 
+    private Date placedAt = new Date();
+
+
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
@@ -43,7 +49,8 @@ public class TacoOrder {
     @Override
     public String toString() {
         return "TacoOrder{" +
-                "deliveryName='" + deliveryName + '\'' +
+                "id=" + id +
+                ", deliveryName='" + deliveryName + '\'' +
                 ", deliveryStreet='" + deliveryStreet + '\'' +
                 ", deliveryCity='" + deliveryCity + '\'' +
                 ", deliveryState='" + deliveryState + '\'' +
@@ -52,6 +59,7 @@ public class TacoOrder {
                 ", ccExpiration='" + ccExpiration + '\'' +
                 ", ccCVV='" + ccCVV + '\'' +
                 ", tacos=" + tacos +
+                ", placedAt=" + placedAt +
                 '}';
     }
 
@@ -125,5 +133,21 @@ public class TacoOrder {
 
     public List<Taco> getTacos() {
         return tacos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
     }
 }
