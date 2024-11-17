@@ -2,6 +2,7 @@ package tacos;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import tacos.data.IngredientRef;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Taco {
 
     @NotNull
     @Size(min=1, message = "You must choose at least 1 ingredient")
-    private List<Ingredient> ingredients;
+    private List<IngredientRef> ingredients;
 
     private Date createdAt = new Date();
 
@@ -24,7 +25,7 @@ public class Taco {
 
     }
 
-    public Taco(Long id, String name, List<Ingredient> ingredients, Date createdAt) {
+    public Taco(Long id, String name, List<IngredientRef> ingredients, Date createdAt) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
@@ -45,7 +46,7 @@ public class Taco {
         this.name = name;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<IngredientRef> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -53,7 +54,7 @@ public class Taco {
         return name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<IngredientRef> getIngredients() {
         return ingredients;
     }
 
