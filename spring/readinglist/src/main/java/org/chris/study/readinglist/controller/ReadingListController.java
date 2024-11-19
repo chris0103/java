@@ -2,6 +2,7 @@ package org.chris.study.readinglist.controller;
 
 import org.chris.study.readinglist.config.AmazonProperties;
 import org.chris.study.readinglist.entity.Book;
+import org.chris.study.readinglist.entity.Reader;
 import org.chris.study.readinglist.repository.ReadingListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,8 +28,8 @@ public class ReadingListController {
         this.amazonProperties = amazonProperties;
     }
 
-    @RequestMapping(value = "/{reader}", method = RequestMethod.GET)
-    public String readersBooks(@PathVariable("reader") String reader, Model model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String readersBooks(Reader reader, Model model) {
         List<Book> readingList = readingListRepository.findByReader(reader);
         if (readingList != null) {
             model.addAttribute("books", readingList);
@@ -38,10 +39,10 @@ public class ReadingListController {
         return "readingList";
     }
 
-    @RequestMapping(value = "/{reader}", method = RequestMethod.POST)
-    public String addToReadingList(@PathVariable("reader") String reader, Book book) {
+    @RequestMapping(method = RequestMethod.POST)
+    public String addToReadingList(Reader reader, Book book) {
         book.setReader(reader);
         readingListRepository.save(book);
-        return "redirect:/readinglist/{reader}";
+        return "redirect:/";
     }
 }

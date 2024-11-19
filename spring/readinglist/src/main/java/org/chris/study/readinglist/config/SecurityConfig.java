@@ -35,7 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return readerRepository.findOne(username);
+                UserDetails userDetails = readerRepository.findOne(username);
+                if (userDetails != null) {
+                    return userDetails;
+                }
+                throw new UsernameNotFoundException("User '" + username + "' not found.");
             }
         });
     }

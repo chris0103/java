@@ -1,5 +1,10 @@
+error:
+  whitelabel:
+    enabled: false
 spring:
   application:
     name: Reading List
 server:
   port: 8000
+amazon:
+  associate_id: habuma-20
