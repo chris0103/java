@@ -2,7 +2,6 @@ package tacos;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import tacos.data.IngredientRef;
 
 import java.util.Date;
 import java.util.List;

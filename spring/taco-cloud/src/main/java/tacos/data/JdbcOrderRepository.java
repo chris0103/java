@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import tacos.Ingredient;
+import tacos.IngredientRef;
 import tacos.Taco;
 import tacos.TacoOrder;
 
@@ -38,22 +38,12 @@ public class JdbcOrderRepository implements OrderRepository {
                 Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP
         );
         factory.setReturnGeneratedKeys(true);
-
         order.setPlacedAt(new Date());
-
-        PreparedStatementCreator psc = factory.newPreparedStatementCreator(
-                Arrays.asList(
-                        order.getDeliveryName(),
-                        order.getDeliveryStreet(),
-                        order.getDeliveryCity(),
-                        order.getDeliveryState(),
-                        order.getDeliveryZip(),
-                        order.getCcNumber(),
-                        order.getCcExpiration(),
-                        order.getCcCVV(),
-                        order.getPlacedAt()
+        PreparedStatementCreator psc = factory.newPreparedStatementCreator(Arrays.asList(
+                order.getDeliveryName(), order.getDeliveryStreet(), order.getDeliveryCity(),
+                order.getDeliveryState(), order.getDeliveryZip(), order.getCcNumber(),
+                order.getCcExpiration(), order.getCcCVV(), order.getPlacedAt()
                 ));
-
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcOperations.update(psc, keyHolder);
         long orderId = keyHolder.getKey().longValue();
@@ -78,12 +68,7 @@ public class JdbcOrderRepository implements OrderRepository {
         factory.setReturnGeneratedKeys(true);
 
         PreparedStatementCreator psc = factory.newPreparedStatementCreator(
-                Arrays.asList(
-                        taco.getName(),
-                        taco.getCreatedAt(),
-                        orderId,
-                        orderKey
-                ));
+                Arrays.asList(taco.getName(), taco.getCreatedAt(), orderId, orderKey));
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcOperations.update(psc, keyHolder);

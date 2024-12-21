@@ -1,4 +1,4 @@
-package tacos.data;
+package tacos;
 
 
 public class IngredientRef {
