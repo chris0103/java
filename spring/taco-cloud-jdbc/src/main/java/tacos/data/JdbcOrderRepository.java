@@ -6,9 +6,9 @@ import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import tacos.IngredientRef;
-import tacos.Taco;
-import tacos.TacoOrder;
+import tacos.model.IngredientRef;
+import tacos.model.Taco;
+import tacos.model.TacoOrder;
 
 import java.sql.Types;
 import java.util.Arrays;

@@ -3,8 +3,8 @@ package tacos.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import tacos.model.Ingredient;
 import tacos.data.IngredientRepository;
+import tacos.model.Ingredient;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,8 +1,14 @@
-package tacos;
+package tacos.model;
 
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.annotation.Id;
+
+@Table
 public class Ingredient {
 
+    @Id
     private final String id;
+
     private final String name;
     private final Type type;
 

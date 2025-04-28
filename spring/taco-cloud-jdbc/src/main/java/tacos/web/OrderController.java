@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import tacos.model.TacoOrder;
 import tacos.data.OrderRepository;
+import tacos.model.TacoOrder;
 
 @Controller
 @RequestMapping("/orders")

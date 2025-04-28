@@ -1,16 +1,20 @@
-package tacos;
+package tacos.model;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Table
 public class TacoOrder {
 
+    @Id
     private Long id;
 
     @NotBlank(message = "Delivery name is required")
