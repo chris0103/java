@@ -13,6 +13,46 @@ class WithFinals {
     }
 }
 
+class OverridingPrivate extends WithFinals {
+
+    private final void f() {
+        System.out.println("OverridingPrivate.f()");
+    }
+
+    private void g() {
+        System.out.println("OverridingPrivate.g()");
+    }
+}
+
+class OverridingPrivate2 extends OverridingPrivate {
+
+    // using @Override here will get a compiler error which is helpful in pointing out the mistake
+    //- @Override
+    public final void f() {
+        System.out.println("OverridingPrivate2.f()");
+    }
+
+    public void g() {
+        System.out.println("OverridingPrivate2.g()");
+    }
+}
+
 // It only looks like you can override a private or private final method
 public class FinalOverridingIllusion {
+
+    public static void main(String[] args) {
+        OverridingPrivate2 op2 = new OverridingPrivate2();
+        op2.f();
+        op2.g();
+        // You can upcast:
+        OverridingPrivate op = op2;
+
+        // But you can't call the methods:
+        //- op.f();
+
+        // Same here:
+        WithFinals wf = op2;
+        //- wf.f();
+        //- wf.g();
+    }
 }
