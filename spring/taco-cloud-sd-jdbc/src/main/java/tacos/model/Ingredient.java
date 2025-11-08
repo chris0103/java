@@ -8,10 +8,10 @@ import org.springframework.data.annotation.Id;
 public class Ingredient implements Persistable<String>  {
 
     @Id
-    private final String id;
+    private String id;
 
-    private final String name;
-    private final Type type;
+    private String name;
+    private Type type;
 
     public Ingredient(String id, String name, Type type) {
         this.id = id;
