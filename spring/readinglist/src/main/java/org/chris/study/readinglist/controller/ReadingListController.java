@@ -43,6 +43,6 @@ public class ReadingListController {
     public String addToReadingList(Reader reader, Book book) {
         book.setReader(reader);
         readingListRepository.save(book);
-        return "redirect:/";
+        return "redirect:/readingList";
     }
 }

@@ -39,17 +39,17 @@ public class Reader implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // grant READER privilege
-        return Arrays.asList(new SimpleGrantedAuthority("READER"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_READER"));
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.username;
     }
 
     // do not expire, lock, or disable
