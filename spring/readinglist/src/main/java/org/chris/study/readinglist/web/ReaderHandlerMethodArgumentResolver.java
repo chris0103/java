@@ -22,6 +22,7 @@ public class ReaderHandlerMethodArgumentResolver implements HandlerMethodArgumen
       ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
       WebDataBinderFactory binderFactory) throws Exception {
 
+      // fetch principal from request and assign to the method parameter of Reader type
       Authentication auth = (Authentication) webRequest.getUserPrincipal();
       return auth != null && auth.getPrincipal() instanceof Reader ? auth.getPrincipal() : null;
   }
