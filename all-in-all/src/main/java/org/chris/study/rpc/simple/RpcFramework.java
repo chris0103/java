@@ -1,4 +1,4 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.simple;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

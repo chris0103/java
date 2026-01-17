@@ -5,5 +5,5 @@ package org.chris.study.rpc;
  */
 public interface HelloService {
 
-    String hello(String name);
+    public String sayHello(String name);
 }

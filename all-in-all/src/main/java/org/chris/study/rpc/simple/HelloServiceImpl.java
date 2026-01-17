@@ -1,12 +1,11 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.simple;
 
 /**
  * Hello service implementation.
  */
 public class HelloServiceImpl implements HelloService {
 
-    @Override
-    public String sayHello(String name) {
+    public String hello(String name) {
         return "Hello, " + name;
     }
 }
