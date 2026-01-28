@@ -1,4 +1,4 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.io;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

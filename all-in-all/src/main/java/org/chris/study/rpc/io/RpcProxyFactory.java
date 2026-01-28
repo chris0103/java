@@ -1,4 +1,4 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.io;
 
 import java.lang.reflect.Proxy;
 
@@ -8,4 +8,3 @@ public class RpcProxyFactory {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] { clazz }, new RpcHandler());
     }
 }
-

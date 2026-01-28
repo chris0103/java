@@ -1,4 +1,4 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.io;
 
 public class RpcConsumer {
 
@@ -8,4 +8,3 @@ public class RpcConsumer {
         System.out.println(result);
     }
 }
-

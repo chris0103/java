@@ -1,4 +1,4 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.io;
 
 public class RpcProvider {
 

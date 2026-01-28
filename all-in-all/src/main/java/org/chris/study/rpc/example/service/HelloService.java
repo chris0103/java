@@ -1,9 +1,5 @@
-package org.chris.study.rpc;
+package org.chris.study.rpc.example.service;
 
-/**
- * The hello service.
- */
 public interface HelloService {
-
     public String sayHello(String name);
 }
