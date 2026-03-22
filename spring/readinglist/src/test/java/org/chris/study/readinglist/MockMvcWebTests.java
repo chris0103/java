@@ -50,6 +50,13 @@ public class MockMvcWebTests {
 	}
 
 	@Test
+	public void homePage_unauthenticatedUser() throws Exception {
+		mockMvc.perform(get("/"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string("Location", "http://localhost/login"));
+	}
+
+	@Test
 	public void postBook() throws Exception {
 		mockMvc.perform(post("/")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
