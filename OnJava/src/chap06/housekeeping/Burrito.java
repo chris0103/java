@@ -1,7 +1,5 @@
 package chap06.housekeeping;
 
-import sun.security.provider.ConfigFile;
-
 public class Burrito {
 
     Spiciness degree;

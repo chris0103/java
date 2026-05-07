@@ -1,7 +1,5 @@
 package chap06.housekeeping;
 
-import jdk.nashorn.internal.ir.BaseNode;
-
 class Banana {
 
     void peel(int i) {
