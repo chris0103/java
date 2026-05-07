@@ -3,22 +3,27 @@ package onjava;// onjava/TestRange.java
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
 // Basic test of Range.java
-import static onjava.Range.*;
+
 import java.util.Arrays;
 
+import static onjava.Range.range;
+
 public class TestRange {
-  private static void show(int[] rng) {
-    System.out.println(Arrays.toString(rng));
-  }
-  public static void main(String[] args) {
-    show(range(10, 21, 3));
-    show(range(21, 10, -3));
-    show(range(-5, 5, -3));
-    show(range(-5, 5, 3));
-    show(range(10, 21));
-    show(range(10));
-  }
+
+    private static void show(int[] rng) {
+        System.out.println(Arrays.toString(rng));
+    }
+
+    public static void main(String[] args) {
+        show(range(10, 21, 3));
+        show(range(21, 10, -3));
+        show(range(-5, 5, -3));
+        show(range(-5, 5, 3));
+        show(range(10, 21));
+        show(range(10));
+    }
 }
+
 /* Output:
 [10, 13, 16, 19]
 [21, 18, 15, 12]
