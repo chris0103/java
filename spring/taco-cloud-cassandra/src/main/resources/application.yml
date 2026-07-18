@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: taco-cloud
+data:
+  cassandra:
+    keyspace-name: taco_cloud
+    schema-action: recreate
+    local-datacenter: datacenter1
