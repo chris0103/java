@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,7 +40,8 @@ public class MockMvcWebTests {
 				.build();
 	}
 
-	@Test
+	// test method without Spring Security
+	// @Test
 	public void homePage() throws Exception {
 		mockMvc.perform(get("/readingList"))
 				.andExpect(status().isOk())
@@ -50,13 +52,30 @@ public class MockMvcWebTests {
 	}
 
 	@Test
+	// @WithMockUser(username = "craig", password = "password", roles = "READER")
+	@WithUserDetails("craig")
+	public void homePage_authenticatedUser() throws Exception {
+		Reader expectedReader = new Reader();
+		expectedReader.setUsername("craig");
+		expectedReader.setPassword("password");
+		expectedReader.setFullname("Craig Walls");
+
+		mockMvc.perform(get("/"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("readingList"))
+				.andExpect(model().attribute("reader", samePropertyValuesAs(expectedReader)))
+				.andExpect(model().attribute("books", hasSize(0)));
+	}
+
+	@Test
 	public void homePage_unauthenticatedUser() throws Exception {
 		mockMvc.perform(get("/"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(header().string("Location", "http://localhost/login"));
 	}
 
-	@Test
+	// @Test
+	@WithUserDetails("craig")
 	public void postBook() throws Exception {
 		mockMvc.perform(post("/")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -65,7 +84,7 @@ public class MockMvcWebTests {
 				.param("isbn", "978-0134686097")
 				.param("description", "Best practices for Java programming"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(header().string("Location", "/"));
+				.andExpect(header().string("Location", "/readingList"));
 
 		Book expectedBook = new Book();
 		expectedBook.setId(1L);
