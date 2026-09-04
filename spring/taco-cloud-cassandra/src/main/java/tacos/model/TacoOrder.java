@@ -1,24 +1,28 @@
 package tacos.model;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-@Entity
+@Table("orders")
 public class TacoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
 
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
@@ -44,8 +48,8 @@ public class TacoOrder implements Serializable {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Taco> tacos = new ArrayList<>();
+    @Column("tacos")
+    private List<TacoUTD> tacos = new ArrayList<>();
 
     private Date placedAt = new Date();
 
@@ -53,8 +57,8 @@ public class TacoOrder implements Serializable {
 
     }
 
-    public TacoOrder(Long id, String deliveryName, String deliveryStreet, String deliveryCity, String deliveryState,
-                     String deliveryZip, String ccNumber, String ccExpiration, String ccCVV, List<Taco> tacos,
+    public TacoOrder(UUID id, String deliveryName, String deliveryStreet, String deliveryCity, String deliveryState,
+                     String deliveryZip, String ccNumber, String ccExpiration, String ccCVV, List<TacoUTD> tacos,
                      Date placedAt) {
         this.id = id;
         this.deliveryName = deliveryName;
@@ -69,7 +73,7 @@ public class TacoOrder implements Serializable {
         this.placedAt = placedAt;
     }
 
-    public void addTaco(Taco taco) {
+    public void addTaco(TacoUTD taco) {
         this.tacos.add(taco);
     }
 
@@ -154,19 +158,19 @@ public class TacoOrder implements Serializable {
         this.ccCVV = ccCVV;
     }
 
-    public void setTacos(List<Taco> tacos) {
+    public void setTacos(List<TacoUTD> tacos) {
         this.tacos = tacos;
     }
 
-    public List<Taco> getTacos() {
+    public List<TacoUTD> getTacos() {
         return tacos;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

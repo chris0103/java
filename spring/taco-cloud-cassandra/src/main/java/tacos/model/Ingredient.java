@@ -1,12 +1,13 @@
 package tacos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-@Entity
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+@Table("ingredients")
 public class Ingredient {
 
-    @Id
+    @PrimaryKey
     private String id;
 
     private String name;
