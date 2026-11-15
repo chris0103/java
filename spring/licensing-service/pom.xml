@@ -64,6 +64,9 @@
 					<image>
 						<name>${docker.image.prefix}/${project.artifactId}:latest</name>
 				  	</image>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
 				</configuration>
 			</plugin>
 			<!-- This plugin is used to create a Docker image and publish it to Docker hub. -->
