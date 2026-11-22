@@ -3,6 +3,7 @@ package org.chris.study.cache.ha.controller;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixObservableCommand;
 import org.chris.study.cache.ha.http.HttpClientUtils;
+import org.chris.study.cache.ha.hystrix.command.GetCityNameCommand;
 import org.chris.study.cache.ha.hystrix.command.GetProductInfoCommand;
 import org.chris.study.cache.ha.hystrix.command.GetProductInfosCommand;
 import org.chris.study.cache.ha.model.ProductInfo;
@@ -22,6 +23,9 @@ public class CacheController {
         ProductInfo productInfo = command.execute();
 
         Long cityId = productInfo.getCityId();
+        GetCityNameCommand getCityNameCommand = new GetCityNameCommand(cityId);
+        String cityName = getCityNameCommand.execute();
+        productInfo.setCityName(cityName);
 
         System.out.println(productInfo);
         return "success";
